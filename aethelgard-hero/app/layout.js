@@ -38,7 +38,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${cinzel.variable} ${italianno.variable} ${garamond.variable} ${lato.variable} antialiased bg-[#0c0a09] text-white/90`}
       >
