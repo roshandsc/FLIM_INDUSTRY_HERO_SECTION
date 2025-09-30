@@ -7,6 +7,7 @@ const AnimatedSparkle = () => (
   <motion.div
     animate={{ rotate: 360, scale: [1, 1.1, 1, 0.9, 1] }}
     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+    className="hidden md:block" // Hide on small screens to prevent layout issues
   >
     <svg
       width="40"
@@ -68,7 +69,7 @@ const YoutubeIcon = (props) => (
 );
 const AethelgardLogo = ({ className }) => (
   <div
-    className={`font-cinzel text-3xl ${className}`}
+    className={`font-cinzel text-2xl md:text-3xl ${className}`}
     style={{ color: "#F4B942" }}
   >
     AETHELGARD
@@ -91,16 +92,16 @@ const LoreModal = ({ isOpen, onClose, lore, isLoading }) => (
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="relative w-11/12 max-w-2xl p-8 bg-[#1c1a19] border border-[#F4B942]/30 rounded-lg shadow-2xl"
+          className="relative w-11/12 max-w-2xl p-6 md:p-8 bg-[#1c1a19] border border-[#F4B942]/30 rounded-lg shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <h2
-            className="font-cinzel text-2xl text-center mb-4"
+            className="font-cinzel text-xl md:text-2xl text-center mb-4"
             style={{ color: "#F4B942" }}
           >
             Whispers of Aethelgard
           </h2>
-          <div className="font-garamond text-lg text-center min-h-[100px] flex items-center justify-center text-[#F1EBE5]">
+          <div className="font-garamond text-base md:text-lg text-center min-h-[100px] flex items-center justify-center text-[#F1EBE5]">
             {isLoading ? (
               <div className="flex flex-col items-center">
                 <svg
@@ -131,7 +132,7 @@ const LoreModal = ({ isOpen, onClose, lore, isLoading }) => (
           </div>
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-[#F1EBE5]/50 hover:text-[#F1EBE5] transition-colors"
+            className="absolute top-3 right-3 md:top-4 md:right-4 text-[#F1EBE5]/50 hover:text-[#F1EBE5] transition-colors"
             aria-label="Close modal"
           >
             <svg
@@ -277,7 +278,7 @@ export default function AethelgardPage() {
 
       <div className="bg-[#0c0a09] text-white/90 min-h-screen">
         <header
-          className={`fixed top-0 left-0 right-0 z-40 p-6 transition-all duration-300 ${
+          className={`fixed top-0 left-0 right-0 z-40 p-4 md:p-6 transition-all duration-300 ${
             isScrolled
               ? "bg-[#0c0a09]/80 backdrop-blur-sm shadow-lg"
               : "bg-transparent"
@@ -336,6 +337,7 @@ export default function AethelgardPage() {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
+                className="z-50 relative"
               >
                 <svg
                   className="w-8 h-8"
@@ -348,7 +350,11 @@ export default function AethelgardPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M4 6h16M4 12h16m-7 6h7"
+                    d={
+                      isMenuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16m-7 6h7"
+                    }
                   ></path>
                 </svg>
               </button>
@@ -365,7 +371,7 @@ export default function AethelgardPage() {
               exit={{ opacity: 0 }}
               className="lg:hidden fixed inset-0 z-30 pt-24 p-6 bg-[#0c0a09]/95 backdrop-blur-sm"
             >
-              <nav className="flex flex-col items-center text-center gap-8">
+              <nav className="flex flex-col items-center text-center gap-8 mt-8">
                 {navLinks.map((link) => (
                   <a
                     key={link.name}
@@ -434,11 +440,11 @@ export default function AethelgardPage() {
             >
               <motion.div
                 variants={itemVariants}
-                className="flex items-center justify-center gap-4 md:gap-8"
+                className="flex items-center justify-center gap-2 md:gap-8"
               >
                 <AnimatedSparkle />
                 <h1
-                  className="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-widest"
+                  className="font-cinzel text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-widest"
                   style={{ color: "#F4B942" }}
                 >
                   A SAGA CARVED IN THE SKY
@@ -447,13 +453,13 @@ export default function AethelgardPage() {
               </motion.div>
               <motion.p
                 variants={itemVariants}
-                className="font-italianno text-3xl md:text-4xl text-white/80 my-4"
+                className="font-italianno text-2xl sm:text-3xl md:text-4xl text-white/80 my-4"
               >
                 Where legends take flight
               </motion.p>
               <motion.p
                 variants={itemVariants}
-                className="font-garamond text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
+                className="font-garamond text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed px-4 sm:px-0"
               >
                 Prepare to be enchanted by Aethelgard, a fantastical
                 architectural concept that re-imagines the grandeur of ancient
@@ -466,7 +472,7 @@ export default function AethelgardPage() {
               <motion.div variants={itemVariants}>
                 <button
                   onClick={handleGenerateLore}
-                  className="font-lato uppercase tracking-wider text-sm font-bold border-2 rounded-sm transition-all duration-300 px-10 py-4 bg-transparent hover:bg-[#F4B942] hover:text-black flex items-center"
+                  className="font-lato uppercase tracking-wider text-sm font-bold border-2 rounded-sm transition-all duration-300 px-8 py-3 md:px-10 md:py-4 bg-transparent hover:bg-[#F4B942] hover:text-black flex items-center"
                   style={{ borderColor: "#F4B942", color: "#F4B942" }}
                 >
                   <span className="mr-2 text-lg">✨</span> EXPLORE THE REALM
@@ -476,8 +482,11 @@ export default function AethelgardPage() {
           </section>
 
           {/* Image Grid Section */}
-          <section id="image-grid" className="py-20 px-6 container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <section
+            id="image-grid"
+            className="py-16 md:py-20 px-4 md:px-6 container mx-auto"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
               {imageSections.map((section, index) => (
                 <motion.div
                   key={section.title}
@@ -494,7 +503,7 @@ export default function AethelgardPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
                   <h3
-                    className="font-cinzel absolute bottom-6 left-6 text-2xl"
+                    className="font-cinzel absolute bottom-6 left-6 text-xl md:text-2xl"
                     style={{ color: "#F1EBE5" }}
                   >
                     {section.title}
@@ -505,13 +514,16 @@ export default function AethelgardPage() {
           </section>
 
           {/* Trailer Section */}
-          <section id="trailer" className="py-20 px-6 text-center">
+          <section
+            id="trailer"
+            className="py-16 md:py-20 px-4 md:px-6 text-center"
+          >
             <motion.h2
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="font-cinzel text-4xl md:text-6xl mb-12"
+              className="font-cinzel text-3xl md:text-4xl lg:text-6xl mb-10 md:mb-12"
               style={{ color: "#F4B942" }}
             >
               WITNESS THE SAGA
@@ -536,7 +548,7 @@ export default function AethelgardPage() {
         </main>
 
         <footer className="mt-20 border-t border-white/10">
-          <div className="container mx-auto p-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+          <div className="container mx-auto p-6 md:p-8 flex flex-col md:flex-row justify-between items-center text-center">
             <AethelgardLogo className="mb-6 md:mb-0" />
             <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 font-lato text-sm uppercase tracking-wider mb-6 md:mb-0">
               {navLinks.map((link) => (
