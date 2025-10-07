@@ -1,375 +1,206 @@
 "use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaSearch,
-  FaFacebook,
-  FaTwitter,
-  FaLinkedin,
-  FaInstagram,
-} from "react-icons/fa";
-import { MdWork, MdSchool, MdStars } from "react-icons/md";
+import React from "react";
+import { motion } from "framer-motion";
 
-export default function Page() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+export default function TessaCloudLanding() {
+  const internships = [
+    { title: "Web Development", duration: "4-12 weeks", mode: "Online" },
+    { title: "AI / ML", duration: "6-24 weeks", mode: "Hybrid" },
+    { title: "Cybersecurity", duration: "6-24 weeks", mode: "Online" },
+    { title: "Cloud Engineering", duration: "4-24 weeks", mode: "Hybrid" },
+  ];
 
-  const internshipData = {
-    "4 Weeks": [
-      "Web Development",
-      "Mobile App Development",
-      "Machine Learning / AI",
-      "Embedded Systems / IoT",
-    ],
-    "6 Weeks": [
-      "Cybersecurity & Ethical Hacking",
-      "Data Science & Analytics",
-      "Python with Django",
-      "UI/UX Design",
-    ],
-    "6 Months": [
-      "DSA Using C++ – 6 Months Internship",
-      "Cloud Computing & DevOps",
-      "AI / ML Advanced Research",
-    ],
-  };
-
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    if (typeof window !== "undefined") {
-      const section = document.getElementById("internship-details");
-      if (section) {
-        window.scrollTo({ top: section.offsetTop - 50, behavior: "smooth" });
-      }
-    }
-  };
+  const trainings = [
+    "Resume Building",
+    "Mock Interviews",
+    "Soft Skills Training",
+    "LinkedIn Optimization",
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white overflow-x-hidden">
-      {/* ------------------------- Header Navigation ------------------------- */}
-      <header className="bg-gray-900/95 text-gray-100 shadow-lg fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-gray-700 transition-all duration-300 rounded-full">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-2 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
-          <div className="flex items-center space-x-2">
-            <img
-              src="/Tessa_Cloud_Learn_Logo_2-removebg-preview.png"
-              alt="Tessa Cloud Logo"
-              className="w-16 sm:w-20 md:w-24 h-auto object-contain"
-            />
+    <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-black/50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-tr from-purple-600 to-red-500 rounded-lg flex items-center justify-center text-sm font-semibold">
+                TC
+              </div>
+              <div className="hidden md:block">
+                <div className="text-lg font-semibold">
+                  Tessa Cloud<span className="text-red-500"> |</span>{" "}
+                  <span className="text-gray-300 text-sm">Learn</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <nav className="flex flex-wrap sm:flex-nowrap justify-center sm:justify-start w-full sm:w-auto gap-4 sm:gap-6 text-sm font-semibold text-gray-100">
-            <a
-              href="#home"
-              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
-            >
-              HOME
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+
+          <nav className="hidden md:flex gap-6 items-center text-sm">
+            <a href="#" className="hover:text-red-500 transition">
+              Home
             </a>
-            <a
-              href="#internships"
-              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
-            >
+            <a href="#" className="hover:text-red-500 transition">
               Internships
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </a>
-            <a
-              href="#career"
-              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
-            >
+            <a href="#" className="hover:text-red-500 transition">
               Career Resource
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </a>
-            <a
-              href="#about"
-              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
-            >
+            <a href="#" className="hover:text-red-500 transition">
               About Us
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </a>
-            <a
-              href="#contact"
-              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
-            >
+            <a href="#" className="hover:text-red-500 transition">
               Contact Us
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </a>
           </nav>
+
+          <div className="md:hidden">
+            <button aria-label="open menu" className="p-2">
+              ☰
+            </button>
+          </div>
         </div>
       </header>
-      {/* ----------------------------- Hero Section ----------------------------- */}
-      <section className="hero-section relative w-full h-screen flex flex-col items-center justify-start text-center overflow-hidden pt-[15vh] px-4 sm:px-6">
-        {/* Background overlay */}
-        <div
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat filter brightness-50"
-          style={{ backgroundImage: "url('/banner_img_ts.png')" }}
-        ></div>
 
-        <div className="hero-content relative z-10 flex flex-col items-center gap-6 w-full max-w-5xl">
-          <motion.img
-            src="/Tessa Cloud - Logo for Website.png"
-            alt="Tessa Cloud Logo"
-            className="mx-auto w-20 sm:w-28 md:w-36 h-auto"
-            initial={{ opacity: 0, y: -40 }}
+      <main className="pt-24">
+        {/* Hero */}
+        <section className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          />
-
-          <motion.h1
-            className="text-2xl sm:text-4xl md:text-6xl font-bold text-white px-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="flex-1"
           >
-            Explore Your Internship Opportunities
-          </motion.h1>
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+              Explore Your Internship Opportunities
+            </h1>
+            <p className="mt-4 text-gray-300 max-w-xl">
+              Choose your internship duration and find the perfect learning
+              path!
+            </p>
 
-          <motion.p
-            className="text-xs sm:text-lg md:text-xl text-gray-300 max-w-lg px-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-          >
-            Choose your internship duration and find the perfect learning path!
-          </motion.p>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="mt-8 flex flex-col sm:flex-row gap-4"
+            >
+              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
+                4 Weeks Internships
+              </button>
+              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
+                6 Weeks Internships
+              </button>
+              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
+                6 Months Internships
+              </button>
+            </motion.div>
+          </motion.div>
 
           <motion.div
-            className="hero-buttons flex flex-wrap justify-center gap-3 mt-4 max-w-full px-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+            initial={{ scale: 0.98, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex-1 w-full"
           >
-            {Object.keys(internshipData).map((category, i) => (
-              <motion.button
-                key={i}
-                className="red-button bg-red-600 hover:bg-red-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold transition-all duration-300 min-w-[140px] sm:min-w-[160px]"
-                onClick={() => handleCategoryClick(category)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category} Internships
-              </motion.button>
-            ))}
+            <div className="w-full h-56 md:h-72 rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-gray-700 flex items-center justify-center overflow-hidden">
+              <img
+                src="/banner_img_ts.png"
+                alt="Hero banner"
+                className="w-full h-full object-cover rounded-2xl"
+              />
+            </div>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      {/* ------------------------- Internship Details Section ------------------------- */}
-      <section
-        id="internship-details"
-        className="py-12 sm:py-16 px-4 sm:px-6 bg-black text-center"
-      >
-        <AnimatePresence mode="wait">
-          {selectedCategory && (
-            <motion.div
-              key={selectedCategory}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-6 sm:mb-8">
-                {selectedCategory} Internship Opportunities
-              </h2>
+        {/* Internship Cards */}
+        <section className="max-w-7xl mx-auto px-6 py-12">
+          <h2 className="text-2xl font-semibold mb-6">Popular Categories</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {internships.map((it) => (
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                key={it.title}
+                className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow"
+              >
+                <div className="text-lg font-semibold">{it.title}</div>
+                <div className="text-sm text-gray-400 mt-2">
+                  Duration: {it.duration}
+                </div>
+                <div className="text-sm text-gray-400">Mode: {it.mode}</div>
+                <button className="mt-4 px-4 py-2 bg-transparent border border-red-600 text-red-400 rounded-md hover:bg-red-600/10">
+                  View Details
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-                {internshipData[selectedCategory].map((internship, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="p-4 sm:p-6 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all duration-300"
-                    whileHover={{ scale: 1.03 }}
-                  >
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                      {internship}
-                    </h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">
-                      Duration: {selectedCategory}
-                      <br />
-                      Mode: Online / Hybrid
-                    </p>
-                    <button className="mt-3 sm:mt-4 px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 rounded hover:bg-red-700 transition text-xs sm:text-sm">
-                      View Details
-                    </button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
+        {/* Training & Placement */}
+        <section className="max-w-7xl mx-auto px-6 py-12">
+          <h2 className="text-2xl font-semibold mb-6">Training & Placement</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {trainings.map((t) => (
+              <motion.div
+                whileHover={{ y: -6 }}
+                key={t}
+                className="p-5 rounded-xl bg-gradient-to-tr from-black to-gray-900 border border-gray-700 text-center"
+              >
+                <div className="w-14 h-14 mx-auto rounded-full bg-gray-800 flex items-center justify-center mb-3">
+                  🎯
+                </div>
+                <div className="font-semibold">{t}</div>
+                <p className="text-sm text-gray-400 mt-2">
+                  Practical sessions and expert mentors to boost your career.
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </main>
 
-      {/* ------------------------- Training & Placement Section ------------------------- */}
-      <section className="py-16 sm:py-20 bg-gray-900 text-center px-4 sm:px-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-6 sm:mb-10">
-          Training & Placement Assistance
-        </h2>
-        <p className="max-w-xl sm:max-w-3xl mx-auto text-gray-300 mb-8 sm:mb-10 text-sm sm:text-base">
-          Get personalized guidance, resume reviews, and interview preparation
-          support from industry mentors. We ensure you’re not only trained but
-          also ready to take the next step in your career.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-          {[
-            "Resume Building",
-            "Mock Interviews",
-            "Soft Skills Training",
-            "LinkedIn Optimization",
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              className="bg-gray-800 p-4 sm:p-6 rounded-lg w-52 sm:w-64 hover:bg-gray-700 transition-all duration-300"
-              whileHover={{ scale: 1.03 }}
-            >
-              <h3 className="text-sm sm:text-base md:text-xl font-semibold text-white">
-                {item}
-              </h3>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ------------------------- Footer ------------------------- */}
-      <footer className="bg-gray-900 text-gray-300 py-8 sm:py-12 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+      {/* Footer */}
+      <footer className="mt-12 border-t border-gray-800 bg-black/40">
+        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div>
-            <h3 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-              <MdWork /> Internships
-            </h3>
-            <ul className="space-y-2 text-sm sm:text-base">
-              <li>
-                <a href="#4weeks" className="hover:text-purple-500 transition">
-                  4 Weeks
-                </a>
-              </li>
-              <li>
-                <a href="#6weeks" className="hover:text-purple-500 transition">
-                  6 Weeks
-                </a>
-              </li>
-              <li>
-                <a href="#6months" className="hover:text-purple-500 transition">
-                  6 Months
-                </a>
-              </li>
-              <li>
-                <a href="#all" className="hover:text-purple-500 transition">
-                  All Internships
-                </a>
-              </li>
+            <h3 className="font-semibold mb-3">Internships</h3>
+            <ul className="text-sm text-gray-400 space-y-2">
+              <li>Web Dev</li>
+              <li>AI/ML</li>
+              <li>Cloud</li>
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-              <MdStars /> Jobs
-            </h3>
-            <ul className="space-y-2 text-sm sm:text-base">
-              <li>
-                <a
-                  href="#fulltime"
-                  className="hover:text-purple-500 transition"
-                >
-                  Full Time
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#parttime"
-                  className="hover:text-purple-500 transition"
-                >
-                  Part Time
-                </a>
-              </li>
-              <li>
-                <a href="#remote" className="hover:text-purple-500 transition">
-                  Remote
-                </a>
-              </li>
-              <li>
-                <a href="#intern" className="hover:text-purple-500 transition">
-                  Internship Jobs
-                </a>
-              </li>
+            <h3 className="font-semibold mb-3">Jobs</h3>
+            <ul className="text-sm text-gray-400 space-y-2">
+              <li>Entry Level</li>
+              <li>Intern to Hire</li>
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-              <MdSchool /> Courses
-            </h3>
-            <ul className="space-y-2 text-sm sm:text-base">
-              <li>
-                <a href="#webdev" className="hover:text-purple-500 transition">
-                  Web Development
-                </a>
-              </li>
-              <li>
-                <a href="#datasci" className="hover:text-purple-500 transition">
-                  Data Science
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#cybersec"
-                  className="hover:text-purple-500 transition"
-                >
-                  Cybersecurity
-                </a>
-              </li>
-              <li>
-                <a href="#design" className="hover:text-purple-500 transition">
-                  UI/UX Design
-                </a>
-              </li>
+            <h3 className="font-semibold mb-3">Courses</h3>
+            <ul className="text-sm text-gray-400 space-y-2">
+              <li>Certifications</li>
+              <li>Short Courses</li>
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-bold text-lg mb-3">
-              About & Contact
-            </h3>
-            <p className="mb-4 max-w-xs text-sm sm:text-base">
-              Tessa Cloud is your gateway to the best internships, jobs, and
-              courses. Connect with us for personalized career guidance.
-            </p>
-            <div className="flex space-x-4 text-purple-600 text-xl">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="hover:text-purple-400 transition"
-              >
-                <FaFacebook />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="hover:text-purple-400 transition"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:text-purple-400 transition"
-              >
-                <FaLinkedin />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="hover:text-purple-400 transition"
-              >
-                <FaInstagram />
-              </a>
+            <h3 className="font-semibold mb-3">About & Contact</h3>
+            <p className="text-sm text-gray-400">contact@tessacloud.learn</p>
+            <div className="flex gap-3 mt-4 text-gray-400">
+              {["F", "T", "L", "I"].map((x) => (
+                <div
+                  key={x}
+                  className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center"
+                >
+                  {x}
+                </div>
+              ))}
             </div>
           </div>
         </div>
-        <div className="mt-6 sm:mt-10 text-center text-gray-500 text-xs sm:text-sm">
-          © {new Date().getFullYear()} Tessa Cloud | Internship Platform. All
-          rights reserved.
+
+        <div className="text-center text-sm text-gray-500 py-6">
+          © 2025 Tessa Cloud | Internship Platform. All rights reserved.
         </div>
       </footer>
     </div>
