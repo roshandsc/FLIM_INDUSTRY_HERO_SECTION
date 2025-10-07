@@ -46,90 +46,74 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white overflow-x-hidden">
       {/* ------------------------- Header Navigation ------------------------- */}
-      <header className="bg-gray-900/95 text-gray-100 shadow-lg fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-gray-700 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between">
+      <header className="bg-gray-900/95 text-gray-100 shadow-lg fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-gray-700 transition-all duration-300 rounded-full">
+        <div className="max-w-2xl mx-auto px-6 py-1 flex flex-wrap items-left justify-left">
           <div className="flex items-center flex-shrink-0 space-x-2 w-full sm:w-auto mb-2 sm:mb-0">
             <img
               src="/Tessa_Cloud_Learn_Logo_2-removebg-preview.png"
               alt="Tessa Cloud Logo"
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-contain"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
             />
-            <nav className="hidden md:flex space-x-4 text-sm font-semibold text-gray-100">
+            <nav className="hidden md:flex space-x-6 text-sm font-semibold text-gray-100">
               <a
-                href="#internship-details"
+                href="#home"
+                className="relative group hover:text-purple-400 transition-colors duration-300"
+              >
+                HOME
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </a>
+              <a
+                href="#internships"
                 className="relative group hover:text-purple-400 transition-colors duration-300"
               >
                 Internships
                 <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </a>
               <a
-                href="#courses"
+                href="#career"
                 className="relative group hover:text-purple-400 transition-colors duration-300"
               >
-                Courses
+                Career Resource
                 <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </a>
               <a
-                href="#offer"
+                href="#about"
                 className="relative group hover:text-purple-400 transition-colors duration-300"
               >
-                OFFER
+                About Us
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+              </a>
+              <a
+                href="#contact"
+                className="relative group hover:text-purple-400 transition-colors duration-300"
+              >
+                Contact Us
                 <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </a>
             </nav>
           </div>
-          <div className="flex items-center flex-shrink-0 space-x-2 w-full sm:w-auto">
-            <div className="relative flex-grow sm:flex-grow-0">
-              <input
-                type="search"
-                name="search"
-                placeholder="Search"
-                className="bg-gray-100 h-8 px-3 pr-8 rounded-full text-xs sm:text-sm w-full sm:w-48 focus:outline-none focus:ring-2 focus:ring-purple-600"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-0 mt-1.5 mr-2 text-purple-600 text-sm sm:text-base"
-              >
-                <FaSearch />
-              </button>
-            </div>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs sm:text-sm font-semibold transition">
-              Login
-            </button>
-            <button className="bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1 rounded text-xs sm:text-sm font-semibold transition">
-              Register
-            </button>
-          </div>
         </div>
       </header>
-
       {/* ----------------------------- Hero Section ----------------------------- */}
-      <section className="relative flex flex-col items-center justify-center h-screen text-center p-6 mt-24">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-40"
-        >
-          <source
-            src="/Gemini_Generated_Image_i4dwqii4dwqii4dw.png"
-            type="image/png"
-          />
-        </video>
+      <section className="hero-section relative w-full h-screen flex flex-col items-center justify-start text-center overflow-hidden pt-[15vh]">
+        {/* Background overlay */}
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat filter brightness-50"
+          style={{ backgroundImage: "url('/banner_img_ts.png')" }}
+        ></div>
 
-        <div className="relative z-10">
+        <div className="hero-content relative z-10 flex flex-col items-center gap-6 px-4 w-full max-w-5xl">
           <motion.img
             src="/Tessa Cloud - Logo for Website.png"
             alt="Tessa Cloud Logo"
-            className="mx-auto w-24 sm:w-32 md:w-36 mb-4 sm:mb-6"
+            className="mx-auto w-24 sm:w-32 md:w-36"
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           />
 
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -138,7 +122,7 @@ export default function Page() {
           </motion.h1>
 
           <motion.p
-            className="text-sm sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-10"
+            className="text-sm sm:text-lg md:text-xl text-gray-300 max-w-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -147,7 +131,7 @@ export default function Page() {
           </motion.p>
 
           <motion.div
-            className="flex flex-wrap justify-center gap-3 sm:gap-4"
+            className="hero-buttons flex flex-wrap justify-center gap-4 mt-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
@@ -155,7 +139,7 @@ export default function Page() {
             {Object.keys(internshipData).map((category, i) => (
               <motion.button
                 key={i}
-                className="bg-red-600 hover:bg-red-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold transition-all duration-300"
+                className="red-button bg-red-600 hover:bg-red-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold transition-all duration-300"
                 onClick={() => handleCategoryClick(category)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
