@@ -84,13 +84,10 @@ export default function TessaCloudLanding() {
               className="mt-8 flex flex-col sm:flex-row gap-4"
             >
               <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
-                4 Weeks Internships
+                Learn More
               </button>
-              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
-                6 Weeks Internships
-              </button>
-              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
-                6 Months Internships
+              <button className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto">
+                Contact Us
               </button>
             </motion.div>
           </motion.div>
@@ -101,9 +98,9 @@ export default function TessaCloudLanding() {
             transition={{ duration: 0.6 }}
             className="flex-1 w-full"
           >
-            <div className="w-full h-56 md:h-72 rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-gray-700 flex items-center justify-center overflow-hidden">
+            <div className="w-full h-72 md:h-96 rounded-2xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center overflow-hidden">
               <img
-                src="/banner_img_ts.png"
+                src="/wmremove-transformed.png"
                 alt="Hero banner"
                 className="w-full h-full object-cover rounded-2xl"
               />
