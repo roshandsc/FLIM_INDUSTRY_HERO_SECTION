@@ -47,73 +47,73 @@ export default function Page() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white overflow-x-hidden">
       {/* ------------------------- Header Navigation ------------------------- */}
       <header className="bg-gray-900/95 text-gray-100 shadow-lg fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-gray-700 transition-all duration-300 rounded-full">
-        <div className="max-w-2xl mx-auto px-6 py-1 flex flex-wrap items-left justify-left">
-          <div className="flex items-center flex-shrink-0 space-x-2 w-full sm:w-auto mb-2 sm:mb-0">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-2 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
+          <div className="flex items-center space-x-2">
             <img
               src="/Tessa_Cloud_Learn_Logo_2-removebg-preview.png"
               alt="Tessa Cloud Logo"
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
+              className="w-16 sm:w-20 md:w-24 h-auto object-contain"
             />
-            <nav className="hidden md:flex space-x-6 text-sm font-semibold text-gray-100">
-              <a
-                href="#home"
-                className="relative group hover:text-purple-400 transition-colors duration-300"
-              >
-                HOME
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </a>
-              <a
-                href="#internships"
-                className="relative group hover:text-purple-400 transition-colors duration-300"
-              >
-                Internships
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </a>
-              <a
-                href="#career"
-                className="relative group hover:text-purple-400 transition-colors duration-300"
-              >
-                Career Resource
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </a>
-              <a
-                href="#about"
-                className="relative group hover:text-purple-400 transition-colors duration-300"
-              >
-                About Us
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </a>
-              <a
-                href="#contact"
-                className="relative group hover:text-purple-400 transition-colors duration-300"
-              >
-                Contact Us
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </a>
-            </nav>
           </div>
+          <nav className="flex flex-wrap sm:flex-nowrap justify-center sm:justify-start w-full sm:w-auto gap-4 sm:gap-6 text-sm font-semibold text-gray-100">
+            <a
+              href="#home"
+              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
+            >
+              HOME
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a
+              href="#internships"
+              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
+            >
+              Internships
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a
+              href="#career"
+              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
+            >
+              Career Resource
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a
+              href="#about"
+              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
+            >
+              About Us
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+            <a
+              href="#contact"
+              className="relative group hover:text-purple-400 transition-colors duration-300 flex-1 text-center sm:text-left"
+            >
+              Contact Us
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-purple-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            </a>
+          </nav>
         </div>
       </header>
       {/* ----------------------------- Hero Section ----------------------------- */}
-      <section className="hero-section relative w-full h-screen flex flex-col items-center justify-start text-center overflow-hidden pt-[15vh]">
+      <section className="hero-section relative w-full h-screen flex flex-col items-center justify-start text-center overflow-hidden pt-[15vh] px-4 sm:px-6">
         {/* Background overlay */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat filter brightness-50"
           style={{ backgroundImage: "url('/banner_img_ts.png')" }}
         ></div>
 
-        <div className="hero-content relative z-10 flex flex-col items-center gap-6 px-4 w-full max-w-5xl">
+        <div className="hero-content relative z-10 flex flex-col items-center gap-6 w-full max-w-5xl">
           <motion.img
             src="/Tessa Cloud - Logo for Website.png"
             alt="Tessa Cloud Logo"
-            className="mx-auto w-24 sm:w-32 md:w-36"
+            className="mx-auto w-20 sm:w-28 md:w-36 h-auto"
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           />
 
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-6xl font-bold text-white"
+            className="text-2xl sm:text-4xl md:text-6xl font-bold text-white px-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -122,7 +122,7 @@ export default function Page() {
           </motion.h1>
 
           <motion.p
-            className="text-sm sm:text-lg md:text-xl text-gray-300 max-w-lg"
+            className="text-xs sm:text-lg md:text-xl text-gray-300 max-w-lg px-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -131,7 +131,7 @@ export default function Page() {
           </motion.p>
 
           <motion.div
-            className="hero-buttons flex flex-wrap justify-center gap-4 mt-4"
+            className="hero-buttons flex flex-wrap justify-center gap-3 mt-4 max-w-full px-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
@@ -139,7 +139,7 @@ export default function Page() {
             {Object.keys(internshipData).map((category, i) => (
               <motion.button
                 key={i}
-                className="red-button bg-red-600 hover:bg-red-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold transition-all duration-300"
+                className="red-button bg-red-600 hover:bg-red-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm md:text-base font-semibold transition-all duration-300 min-w-[140px] sm:min-w-[160px]"
                 onClick={() => handleCategoryClick(category)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
