@@ -47,8 +47,8 @@ export default function Page() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white overflow-x-hidden">
       {/* ------------------------- Header Navigation ------------------------- */}
       <header className="bg-gray-900/95 text-gray-100 shadow-lg fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-gray-700 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between">
+          <div className="flex items-center flex-shrink-0 space-x-2 w-full sm:w-auto mb-2 sm:mb-0">
             <img
               src="/Tessa_Cloud_Learn_Logo_2-removebg-preview.png"
               alt="Tessa Cloud Logo"
@@ -78,13 +78,13 @@ export default function Page() {
               </a>
             </nav>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="relative text-gray-600">
+          <div className="flex items-center flex-shrink-0 space-x-2 w-full sm:w-auto">
+            <div className="relative flex-grow sm:flex-grow-0">
               <input
                 type="search"
                 name="search"
                 placeholder="Search"
-                className="bg-gray-100 h-8 px-3 pr-8 rounded-full text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="bg-gray-100 h-8 px-3 pr-8 rounded-full text-xs sm:text-sm w-full sm:w-48 focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
               <button
                 type="submit"
