@@ -3,11 +3,46 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function TessaCloudLanding() {
+  const [showAll, setShowAll] = React.useState(false);
+  const [selectedInternship, setSelectedInternship] = React.useState(null);
+
   const internships = [
+    {
+      title: "DSA using C++",
+      duration: "6 Months",
+      mode: "Online",
+    },
     { title: "Web Development", duration: "4-12 weeks", mode: "Online" },
-    { title: "AI / ML", duration: "6-24 weeks", mode: "Hybrid" },
-    { title: "Cybersecurity", duration: "6-24 weeks", mode: "Online" },
-    { title: "Cloud Engineering", duration: "4-24 weeks", mode: "Hybrid" },
+    { title: "Mobile App Development", duration: "4-12 weeks", mode: "Hybrid" },
+    { title: "Machine Learning / AI", duration: "6-24 weeks", mode: "Hybrid" },
+    {
+      title: "Data Science & Analytics",
+      duration: "4-12 weeks",
+      mode: "Online",
+    },
+    { title: "Cybersecurity Basics", duration: "4-12 weeks", mode: "Online" },
+    {
+      title: "Desktop App Development",
+      duration: "4-12 weeks",
+      mode: "Hybrid",
+    },
+    { title: "Software Testing & QA", duration: "4-12 weeks", mode: "Online" },
+    { title: "DevOps / Cloud Basics", duration: "4-12 weeks", mode: "Hybrid" },
+    {
+      title: "Open Source Contribution",
+      duration: "4-12 weeks",
+      mode: "Remote",
+    },
+    {
+      title: "Game Development (Beginner)",
+      duration: "4-12 weeks",
+      mode: "Hybrid",
+    },
+    {
+      title: "Full Stack Development (6 Months)",
+      duration: "6 Months",
+      mode: "Hybrid",
+    },
   ];
 
   const trainings = [
@@ -98,11 +133,11 @@ export default function TessaCloudLanding() {
             transition={{ duration: 0.6 }}
             className="flex-1 w-full"
           >
-            <div className="w-full h-72 md:h-96 rounded-2xl bg-gradient-to-br from-gray-800 to-black flex items-center justify-center overflow-hidden">
+            <div className="w-full h-72 md:h-96 rounded-2xl bg-black flex items-center justify-center overflow-hidden">
               <img
                 src="/wmremove-transformed.png"
                 alt="Hero banner"
-                className="w-full h-full object-cover rounded-2xl"
+                className="w-full h-full object-cover rounded-2xl brightness-95"
               />
             </div>
           </motion.div>
@@ -112,7 +147,7 @@ export default function TessaCloudLanding() {
         <section className="max-w-7xl mx-auto px-6 py-12">
           <h2 className="text-2xl font-semibold mb-6">Popular Categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {internships.map((it) => (
+            {(showAll ? internships : internships.slice(0, 4)).map((it) => (
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -124,13 +159,335 @@ export default function TessaCloudLanding() {
                   Duration: {it.duration}
                 </div>
                 <div className="text-sm text-gray-400">Mode: {it.mode}</div>
-                <button className="mt-4 px-4 py-2 bg-transparent border border-red-600 text-red-400 rounded-md hover:bg-red-600/10">
-                  View Details
+                <button
+                  onClick={() => setSelectedInternship(it)}
+                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-600 via-pink-500 to-purple-600 text-white font-semibold shadow-[0_0_15px_rgba(255,0,85,0.6)] hover:shadow-[0_0_25px_rgba(255,0,85,0.9)] transition-all duration-300 hover:scale-105 hover:from-purple-600 hover:to-red-600"
+                >
+                  <span className="tracking-wide">View Details →</span>
                 </button>
               </motion.div>
             ))}
           </div>
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="px-6 py-2.5 rounded-md bg-gradient-to-r from-purple-600 to-red-500 text-white font-semibold shadow-lg hover:scale-105 transition-transform"
+            >
+              {showAll ? "View Less ▲" : "View More ▼"}
+            </button>
+          </div>
+          <div className="mt-10 bg-gradient-to-r from-blue-200 via-teal-100 to-green-100 p-6 rounded-xl text-gray-900 shadow-md">
+            <h3 className="text-xl font-semibold mb-2">Highlights</h3>
+            <ul className="list-disc list-inside space-y-2 text-sm">
+              <li>
+                Along with the internship, we provide Integrated Projects and
+                opportunities to work on Live Product Development.
+              </li>
+              <li>
+                If students prefer, we also assist with Placement opportunities
+                with an additional service charge.
+              </li>
+            </ul>
+          </div>
         </section>
+
+        {selectedInternship && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm overflow-y-auto p-4"
+            onClick={() => setSelectedInternship(null)}
+          >
+            <motion.div
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, type: "spring" }}
+              className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 max-w-3xl w-full shadow-2xl border border-gray-700 relative"
+            >
+              <button
+                onClick={() => setSelectedInternship(null)}
+                className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+              <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
+                {selectedInternship.title}
+              </h3>
+
+              {/* Render detailed content based on selected internship */}
+              {selectedInternship.title === "DSA using C++" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 6 Months | <strong>Mode:</strong>{" "}
+                    Online
+                  </p>
+                  <p>
+                    <strong>C++ Refresher & Basic Data Structures:</strong>
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>
+                      Reviewed C++ basics, variables, data types, control
+                      structures
+                    </li>
+                    <li>Implemented arrays, strings, structures, pointers</li>
+                    <li>Solved searching and sorting problems</li>
+                  </ul>
+                  <p>
+                    <strong>Linked Lists, Stacks, and Queues:</strong>
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>Implemented singly, doubly, circular linked lists</li>
+                    <li>
+                      Built stacks and queues using array and linked lists
+                    </li>
+                    <li>Introduced STL containers: stack, queue, list</li>
+                  </ul>
+                  <p>
+                    <strong>Trees and Recursion:</strong>
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>Implemented binary trees and BSTs</li>
+                    <li>Practiced traversals: inorder, preorder, postorder</li>
+                    <li>
+                      Worked on recursive problems and LCA, height, diameter
+                      calculations
+                    </li>
+                  </ul>
+                  <p>
+                    <strong>Graphs & Final Project:</strong>
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>Graph implementation using adjacency list/matrix</li>
+                    <li>
+                      Traversal: BFS, DFS; Algorithms: Dijkstra, Topological
+                      Sorting, Cycle Detection
+                    </li>
+                    <li>Final project: Mini DSA console project</li>
+                  </ul>
+                  <p>
+                    <strong>Skills Gained:</strong>
+                  </p>
+                  <ul className="list-disc list-inside ml-4">
+                    <li>Core DSA concepts in C++</li>
+                    <li>
+                      Problem-solving using recursion, pointers, and dynamic
+                      memory
+                    </li>
+                    <li>
+                      Code debugging, optimization, and real-world DSA
+                      challenges
+                    </li>
+                  </ul>
+                </div>
+              )}
+
+              {selectedInternship.title === "Web Development" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Online
+                  </p>
+                  <p>
+                    <strong>Frontend:</strong> HTML, CSS, JavaScript, React, Vue
+                  </p>
+                  <p>
+                    <strong>Backend:</strong> Node.js, Express, Django, Flask
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Build a portfolio website,
+                    to-do app, or blog CMS
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Mobile App Development" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Hybrid
+                  </p>
+                  <p>
+                    <strong>Platforms:</strong> Android (Java/Kotlin), iOS
+                    (Swift), Flutter (Dart)
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Weather app, Expense
+                    tracker, Notes app
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Machine Learning / AI" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 6-24 weeks |{" "}
+                    <strong>Mode:</strong> Hybrid
+                  </p>
+                  <p>
+                    <strong>Tools:</strong> Python, Scikit-learn, TensorFlow,
+                    OpenCV
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Image classifier, Chatbot,
+                    Sentiment analysis
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Data Science & Analytics" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Online
+                  </p>
+                  <p>
+                    <strong>Tools:</strong> Python, Pandas, Excel, Power BI, SQL
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Analyze a dataset, Sales
+                    dashboard, Data visualization reports
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Cybersecurity Basics" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Online
+                  </p>
+                  <p>
+                    <strong>Topics:</strong> Network security, OWASP Top 10,
+                    Ethical Hacking (Kali Linux), Web vulnerabilities
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Basic penetration testing on
+                    a test website, password strength checker
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Desktop App Development" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Hybrid
+                  </p>
+                  <p>
+                    <strong>Tech:</strong> Java (Swing/JavaFX), Python
+                    (Tkinter/PyQt), Electron.js
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Calculator, Notepad, File
+                    Organizer
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Software Testing & QA" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Online
+                  </p>
+                  <p>
+                    <strong>Types:</strong> Manual Testing, Automation
+                    (Selenium, Postman)
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Create test cases for a
+                    small app, automate login flow testing
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "DevOps / Cloud Basics" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Hybrid
+                  </p>
+                  <p>
+                    <strong>Tools:</strong> Git, Docker, CI/CD, AWS, Azure,
+                    Google Cloud
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Dockerize a small app, set
+                    up CI with GitHub Actions
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Open Source Contribution" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Remote
+                  </p>
+                  <p>
+                    <strong>Platforms:</strong> GitHub, GitLab
+                  </p>
+                  <p>
+                    <strong>Skills:</strong> Git, issue tracking, pull requests
+                  </p>
+                  <p>
+                    <strong>Project Idea:</strong> Contribute documentation or
+                    code to beginner-friendly repositories
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title === "Game Development (Beginner)" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 4-12 weeks |{" "}
+                    <strong>Mode:</strong> Hybrid
+                  </p>
+                  <p>
+                    <strong>Tools:</strong> Unity (C#), Godot, Pygame
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Simple 2D games like Pong,
+                    Breakout, or Platformer
+                  </p>
+                </div>
+              )}
+
+              {selectedInternship.title ===
+                "Full Stack Development (6 Months)" && (
+                <div className="text-gray-300 space-y-4 text-sm">
+                  <p>
+                    <strong>Duration:</strong> 6 Months | <strong>Mode:</strong>{" "}
+                    Hybrid
+                  </p>
+                  <p>
+                    <strong>Frontend:</strong> HTML, CSS, JavaScript, React, Vue
+                  </p>
+                  <p>
+                    <strong>Backend:</strong> Node.js, Express, Django, Flask
+                  </p>
+                  <p>
+                    <strong>Project Ideas:</strong> Build a full-stack project
+                    (Portfolio, Blog, To-do app)
+                  </p>
+                </div>
+              )}
+
+              <div className="mt-6 text-right">
+                <button
+                  onClick={() =>
+                    alert(`Enrolled in ${selectedInternship.title}!`)
+                  }
+                  className="px-5 py-2.5 rounded-md bg-gradient-to-r from-green-400 via-teal-400 to-blue-500 text-white font-semibold hover:scale-105 transition-transform"
+                >
+                  Enroll Now
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
 
         {/* Training & Placement */}
         <section className="max-w-7xl mx-auto px-6 py-12">
