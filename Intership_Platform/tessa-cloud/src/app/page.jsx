@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
 
 export default function TessaCloudLanding() {
   const [showAll, setShowAll] = React.useState(false);
   const [selectedInternship, setSelectedInternship] = React.useState(null);
+  const [showAbout, setShowAbout] = React.useState(false);
+  const [showContact, setShowContact] = React.useState(false);
 
   const internships = [
     {
@@ -46,12 +49,26 @@ export default function TessaCloudLanding() {
   ];
 
   const trainings = [
-    "Resume Building",
-    "Mock Interviews",
-    "Soft Skills Training",
-    "LinkedIn Optimization",
+    {
+      title: "Resume Building",
+      icon: <FaFileAlt className="text-2xl text-blue-400" />,
+    },
+    {
+      title: "Mock Interviews",
+      icon: <FaComments className="text-2xl text-green-400" />,
+    },
+    {
+      title: "Soft Skills Training",
+      icon: <FaUserTie className="text-2xl text-yellow-400" />,
+    },
+    {
+      title: "LinkedIn Optimization",
+      icon: <FaLinkedin className="text-2xl text-blue-500" />,
+    },
   ];
 
+  // Mobile menu toggle state
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   return (
     <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
       {/* Header */}
@@ -78,26 +95,193 @@ export default function TessaCloudLanding() {
             <a href="#" className="hover:text-red-500 transition">
               Internships
             </a>
-            <a href="#" className="hover:text-red-500 transition">
-              Career Resource
+            <a
+              href="https://tessacloud.com/careers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-red-500 transition"
+            >
+              Careers
             </a>
-            <a href="#" className="hover:text-red-500 transition">
+            <a
+              href="#"
+              onClick={() => setShowAbout(true)}
+              className="hover:text-red-500 transition"
+            >
               About Us
             </a>
-            <a href="#" className="hover:text-red-500 transition">
+            <a
+              href="#"
+              onClick={() => setShowContact(true)}
+              className="hover:text-red-500 transition"
+            >
               Contact Us
             </a>
           </nav>
 
-          <div className="md:hidden">
-            <button aria-label="open menu" className="p-2">
-              ☰
+          {/* Mobile menu button and dropdown */}
+          <div className="md:hidden relative">
+            <button
+              aria-label="toggle mobile menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-xl"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
             </button>
+
+            {mobileMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-black/90 backdrop-blur-md rounded-lg shadow-lg flex flex-col py-2">
+                <a
+                  href="#"
+                  className="px-4 py-2 hover:bg-gray-800 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </a>
+                <a
+                  href="#"
+                  className="px-4 py-2 hover:bg-gray-800 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Internships
+                </a>
+                <a
+                  href="https://tessacloud.com/careers"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 hover:bg-gray-800 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Careers
+                </a>
+                <a
+                  href="#"
+                  className="px-4 py-2 hover:bg-gray-800 transition"
+                  onClick={() => {
+                    setShowAbout(true);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  About Us
+                </a>
+                <a
+                  href="#"
+                  className="px-4 py-2 hover:bg-gray-800 transition"
+                  onClick={() => {
+                    setShowContact(true);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  Contact Us
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </header>
 
       <main className="pt-24">
+        {/* About Us Popup */}
+        <AnimatePresence>
+          {showAbout && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
+              onClick={() => setShowAbout(false)}
+            >
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 40, opacity: 0 }}
+                transition={{ duration: 0.5, type: "spring" }}
+                className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-2xl w-full p-8 relative"
+              >
+                <button
+                  onClick={() => setShowAbout(false)}
+                  className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
+                  About Tessa Cloud
+                </h3>
+                <p className="text-sm leading-relaxed">
+                  Tessa Cloud builds intelligent enterprise-grade software
+                  applications leveraging AI to solve complex business
+                  challenges efficiently. Our solutions automate workflows,
+                  enhance productivity, and empower innovation. With a focus on
+                  cutting-edge technology, Tessa Cloud delivers scalable and
+                  secure solutions tailored to enterprise needs.
+                </p>
+                <div className="mt-4 text-sm text-gray-400 italic">
+                  “Innovate. Automate. Elevate.”
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* Contact Us Popup */}
+        <AnimatePresence>
+          {showContact && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
+              onClick={() => setShowContact(false)}
+            >
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 40, opacity: 0 }}
+                transition={{ duration: 0.5, type: "spring" }}
+                className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-md w-full p-8 relative"
+              >
+                <button
+                  onClick={() => setShowContact(false)}
+                  className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+                  Contact Tessa Cloud
+                </h3>
+                <div className="space-y-4 text-sm">
+                  <p>
+                    We’d love to hear from you! Reach out to us via email or
+                    phone.
+                  </p>
+                  <p>
+                    <strong>Email:</strong>{" "}
+                    <a
+                      href="https://mail.google.com/mail/?view=cm&fs=1&to=info@tessacloud.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:underline"
+                    >
+                      info@tessacloud.com
+                    </a>
+                  </p>
+                  <p>
+                    <strong>Phone:</strong>{" "}
+                    <a
+                      href="tel:+911234567890"
+                      className="text-blue-400 hover:underline"
+                    >
+                      +91 12345 67890
+                    </a>
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {/* Hero */}
         <section className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
           <motion.div
@@ -119,7 +303,7 @@ export default function TessaCloudLanding() {
               className="mt-8 flex flex-col sm:flex-row gap-4"
             >
               <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
-                Learn More
+                View Internships
               </button>
               <button className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto">
                 Contact Us
@@ -496,13 +680,13 @@ export default function TessaCloudLanding() {
             {trainings.map((t) => (
               <motion.div
                 whileHover={{ y: -6 }}
-                key={t}
+                key={t.title}
                 className="p-5 rounded-xl bg-gradient-to-tr from-black to-gray-900 border border-gray-700 text-center"
               >
                 <div className="w-14 h-14 mx-auto rounded-full bg-gray-800 flex items-center justify-center mb-3">
-                  🎯
+                  {t.icon}
                 </div>
-                <div className="font-semibold">{t}</div>
+                <div className="font-semibold">{t.title}</div>
                 <p className="text-sm text-gray-400 mt-2">
                   Practical sessions and expert mentors to boost your career.
                 </p>
@@ -528,6 +712,21 @@ export default function TessaCloudLanding() {
             <ul className="text-sm text-gray-400 space-y-2">
               <li>Entry Level</li>
               <li>Intern to Hire</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3">Careers</h3>
+            <ul className="text-sm text-gray-400 space-y-2">
+              <li>
+                <a
+                  href="https://tessacloud.com/careers"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-red-500 transition"
+                >
+                  Explore Careers
+                </a>
+              </li>
             </ul>
           </div>
           <div>
