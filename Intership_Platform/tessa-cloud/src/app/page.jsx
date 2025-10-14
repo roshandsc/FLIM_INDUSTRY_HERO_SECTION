@@ -2,6 +2,21 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaCode,
+  FaGlobe,
+  FaMobileAlt,
+  FaRobot,
+  FaChartLine,
+  FaShieldAlt,
+  FaDesktop,
+  FaCheckCircle,
+  FaCloud,
+  FaGithub,
+  FaGamepad,
+  FaLayerGroup,
+} from "react-icons/fa";
 
 export default function TessaCloudLanding() {
   const [showAll, setShowAll] = React.useState(false);
@@ -9,42 +24,81 @@ export default function TessaCloudLanding() {
   const [showAbout, setShowAbout] = React.useState(false);
   const [showContact, setShowContact] = React.useState(false);
 
+  // Ref for popular categories section
+  const popularCategoriesRef = React.useRef(null);
+
   const internships = [
     {
       title: "DSA using C++",
       duration: "6 Months",
       mode: "Online",
+      icon: <FaCode className="text-2xl text-blue-400" />,
     },
-    { title: "Web Development", duration: "4-12 weeks", mode: "Online" },
-    { title: "Mobile App Development", duration: "4-12 weeks", mode: "Hybrid" },
-    { title: "Machine Learning / AI", duration: "6-24 weeks", mode: "Hybrid" },
+    {
+      title: "Web Development",
+      duration: "4-12 weeks",
+      mode: "Online",
+      icon: <FaGlobe className="text-2xl text-green-400" />,
+    },
+    {
+      title: "Mobile App Development",
+      duration: "4-12 weeks",
+      mode: "Hybrid",
+      icon: <FaMobileAlt className="text-2xl text-purple-400" />,
+    },
+    {
+      title: "Machine Learning / AI",
+      duration: "6-24 weeks",
+      mode: "Hybrid",
+      icon: <FaRobot className="text-2xl text-yellow-400" />,
+    },
     {
       title: "Data Science & Analytics",
       duration: "4-12 weeks",
       mode: "Online",
+      icon: <FaChartLine className="text-2xl text-red-400" />,
     },
-    { title: "Cybersecurity Basics", duration: "4-12 weeks", mode: "Online" },
+    {
+      title: "Cybersecurity Basics",
+      duration: "4-12 weeks",
+      mode: "Online",
+      icon: <FaShieldAlt className="text-2xl text-blue-500" />,
+    },
     {
       title: "Desktop App Development",
       duration: "4-12 weeks",
       mode: "Hybrid",
+      icon: <FaDesktop className="text-2xl text-indigo-400" />,
     },
-    { title: "Software Testing & QA", duration: "4-12 weeks", mode: "Online" },
-    { title: "DevOps / Cloud Basics", duration: "4-12 weeks", mode: "Hybrid" },
+    {
+      title: "Software Testing & QA",
+      duration: "4-12 weeks",
+      mode: "Online",
+      icon: <FaCheckCircle className="text-2xl text-green-500" />,
+    },
+    {
+      title: "DevOps / Cloud Basics",
+      duration: "4-12 weeks",
+      mode: "Hybrid",
+      icon: <FaCloud className="text-2xl text-teal-400" />,
+    },
     {
       title: "Open Source Contribution",
       duration: "4-12 weeks",
       mode: "Remote",
+      icon: <FaGithub className="text-2xl text-gray-400" />,
     },
     {
       title: "Game Development (Beginner)",
       duration: "4-12 weeks",
       mode: "Hybrid",
+      icon: <FaGamepad className="text-2xl text-pink-400" />,
     },
     {
       title: "Full Stack Development (6 Months)",
       duration: "6 Months",
       mode: "Hybrid",
+      icon: <FaLayerGroup className="text-2xl text-orange-400" />,
     },
   ];
 
@@ -69,6 +123,13 @@ export default function TessaCloudLanding() {
 
   // Mobile menu toggle state
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  // Handler to scroll to popular categories section
+  const handleScrollToPopularCategories = React.useCallback(() => {
+    if (popularCategoriesRef.current) {
+      popularCategoriesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
   return (
     <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
       {/* Header */}
@@ -76,9 +137,11 @@ export default function TessaCloudLanding() {
         <div className="max-w-7xl mx-auto flex items-center justify-between p-4 md:p-6">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-tr from-purple-600 to-red-500 rounded-lg flex items-center justify-center text-sm font-semibold">
-                TC
-              </div>
+              <img
+                src="/logo.png"
+                alt="Tessa Cloud Logo"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
+              />
               <div className="hidden md:block">
                 <div className="text-lg font-semibold">
                   Tessa Cloud<span className="text-red-500"> |</span>{" "}
@@ -92,7 +155,14 @@ export default function TessaCloudLanding() {
             <a href="#" className="hover:text-red-500 transition">
               Home
             </a>
-            <a href="#" className="hover:text-red-500 transition">
+            <a
+              href="#"
+              className="hover:text-red-500 transition"
+              onClick={(e) => {
+                e.preventDefault();
+                handleScrollToPopularCategories();
+              }}
+            >
               Internships
             </a>
             <a
@@ -119,6 +189,33 @@ export default function TessaCloudLanding() {
             </a>
           </nav>
 
+          <div className="hidden md:flex gap-4 text-gray-400">
+            <a
+              href="https://www.facebook.com/people/Tessa-Cloud/61581878499209/?mibextid=wwXIfr&rdid=HD8KRTnU03Wf9mg8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CPK8RWDva%2F%3Fmibextid%3DwwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-500 transition"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="https://www.instagram.com/its_tessa_cloud/?igsh=dzRyaHBtY2tod3hx&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-pink-500 transition"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/tessacloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400 transition"
+            >
+              <FaLinkedinIn />
+            </a>
+          </div>
+
           {/* Mobile menu button and dropdown */}
           <div className="md:hidden relative">
             <button
@@ -141,7 +238,13 @@ export default function TessaCloudLanding() {
                 <a
                   href="#"
                   className="px-4 py-2 hover:bg-gray-800 transition"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    setTimeout(() => {
+                      handleScrollToPopularCategories();
+                    }, 100);
+                  }}
                 >
                   Internships
                 </a>
@@ -283,6 +386,7 @@ export default function TessaCloudLanding() {
           )}
         </AnimatePresence>
         {/* Hero */}
+        {/* Hero */}
         <section className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -302,10 +406,16 @@ export default function TessaCloudLanding() {
               whileHover={{ scale: 1.02 }}
               className="mt-8 flex flex-col sm:flex-row gap-4"
             >
-              <button className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto">
+              <button
+                onClick={() => handleScrollToPopularCategories()}
+                className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto"
+              >
                 View Internships
               </button>
-              <button className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto">
+              <button
+                onClick={() => setShowContact(true)}
+                className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto"
+              >
                 Contact Us
               </button>
             </motion.div>
@@ -326,9 +436,11 @@ export default function TessaCloudLanding() {
             </div>
           </motion.div>
         </section>
-
         {/* Internship Cards */}
-        <section className="max-w-7xl mx-auto px-6 py-12">
+        <section
+          className="max-w-7xl mx-auto px-6 py-12"
+          ref={popularCategoriesRef}
+        >
           <h2 className="text-2xl font-semibold mb-6">Popular Categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(showAll ? internships : internships.slice(0, 4)).map((it) => (
@@ -338,14 +450,17 @@ export default function TessaCloudLanding() {
                 key={it.title}
                 className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow"
               >
-                <div className="text-lg font-semibold">{it.title}</div>
+                <div className="flex items-center gap-3 mb-3">
+                  {it.icon}
+                  <div className="text-lg font-semibold">{it.title}</div>
+                </div>
                 <div className="text-sm text-gray-400 mt-2">
                   Duration: {it.duration}
                 </div>
                 <div className="text-sm text-gray-400">Mode: {it.mode}</div>
                 <button
                   onClick={() => setSelectedInternship(it)}
-                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-600 via-pink-500 to-purple-600 text-white font-semibold shadow-[0_0_15px_rgba(255,0,85,0.6)] hover:shadow-[0_0_25px_rgba(255,0,85,0.9)] transition-all duration-300 hover:scale-105 hover:from-purple-600 hover:to-red-600"
+                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_15px_rgba(255,0,85,0.5)] hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
                 >
                   <span className="tracking-wide">View Details →</span>
                 </button>
@@ -696,6 +811,64 @@ export default function TessaCloudLanding() {
         </section>
       </main>
 
+      {/* Contact Form Section */}
+      <section className="max-w-7xl mx-auto px-6 py-16 text-white bg-gradient-to-br from-black via-gray-900 to-gray-800 rounded-xl mt-12 shadow-lg">
+        <h2 className="text-3xl font-bold text-center mb-2">Get in Touch</h2>
+        <p className="text-center text-gray-400 mb-12">
+          Have ideas? Let’s talk and build something great together.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-red-400">Address</h3>
+            <p className="text-gray-300">
+              #136, 4th Cross, BMV Mayanna Layout, Nagasandra Post, Bengaluru
+            </p>
+
+            <h3 className="text-lg font-semibold mt-6 mb-2 text-red-400">
+              Email
+            </h3>
+            <p className="text-gray-300">
+              <a
+                href="mailto:info@tessacloud.com"
+                className="hover:text-red-400 transition"
+              >
+                info@tessacloud.com
+              </a>
+            </p>
+          </div>
+          <form className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
+              />
+            </div>
+            <input
+              type="text"
+              placeholder="Your Mobile Number"
+              className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
+            />
+            <textarea
+              rows="4"
+              placeholder="Your Message"
+              className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
+            ></textarea>
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-red-600 to-gray-900 hover:from-gray-900 hover:to-red-700 py-3 rounded-md font-semibold text-white shadow-lg hover:scale-105 transition-all"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="mt-12 border-t border-gray-800 bg-black/40">
         <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -729,29 +902,37 @@ export default function TessaCloudLanding() {
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-semibold mb-3">Courses</h3>
-            <ul className="text-sm text-gray-400 space-y-2">
-              <li>Certifications</li>
-              <li>Short Courses</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-3">About & Contact</h3>
-            <p className="text-sm text-gray-400">contact@tessacloud.learn</p>
-            <div className="flex gap-3 mt-4 text-gray-400">
-              {["F", "T", "L", "I"].map((x) => (
-                <div
-                  key={x}
-                  className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center"
-                >
-                  {x}
-                </div>
-              ))}
+          <div className="text-right lg:text-right sm:text-left">
+            <h3 className="font-semibold mb-2">About & Contact</h3>
+            <p className="text-sm text-gray-400">info@tessacloud.com</p>
+            <div className="flex justify-end sm:justify-start lg:justify-end gap-3 mt-2 text-gray-400 text-xl">
+              <a
+                href="https://www.facebook.com/people/Tessa-Cloud/61581878499209/?mibextid=wwXIfr&rdid=HD8KRTnU03Wf9mg8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CPK8RWDva%2F%3Fmibextid%3DwwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-500 transition"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href="https://www.instagram.com/its_tessa_cloud/?igsh=dzRyaHBtY2tod3hx&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-pink-500 transition"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/tessacloud"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition"
+              >
+                <FaLinkedinIn />
+              </a>
             </div>
           </div>
         </div>
-
         <div className="text-center text-sm text-gray-500 py-6">
           © 2025 Tessa Cloud | Internship Platform. All rights reserved.
         </div>
