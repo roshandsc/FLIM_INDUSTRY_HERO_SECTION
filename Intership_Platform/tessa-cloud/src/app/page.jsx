@@ -142,12 +142,9 @@ export default function TessaCloudLanding() {
                 alt="Tessa Cloud Logo"
                 className="w-12 h-12 md:w-14 md:h-14 object-contain"
               />
-              <div className="hidden md:block">
-                <div className="text-lg font-semibold">
-                  Tessa Cloud<span className="text-red-500"> |</span>{" "}
-                  <span className="text-gray-300 text-sm">Learn</span>
-                </div>
-              </div>
+              <span className="text-lg font-semibold text-white ml-2">
+                Tessa Learn
+              </span>
             </div>
           </div>
 
@@ -189,7 +186,7 @@ export default function TessaCloudLanding() {
             </a>
           </nav>
 
-          <div className="hidden md:flex gap-4 text-gray-400">
+          <div className="flex gap-4 text-gray-400 text-lg md:text-base">
             <a
               href="https://www.facebook.com/people/Tessa-Cloud/61581878499209/?mibextid=wwXIfr&rdid=HD8KRTnU03Wf9mg8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CPK8RWDva%2F%3Fmibextid%3DwwXIfr"
               target="_blank"
@@ -460,7 +457,7 @@ export default function TessaCloudLanding() {
                 <div className="text-sm text-gray-400">Mode: {it.mode}</div>
                 <button
                   onClick={() => setSelectedInternship(it)}
-                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_15px_rgba(255,0,85,0.5)] hover:shadow-[0_0_25px_rgba(255,0,85,0.8)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
+                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_6px_rgba(255,0,85,0.2)] hover:shadow-[0_0_10px_rgba(255,0,85,0.3)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
                 >
                   <span className="tracking-wide">View Details →</span>
                 </button>
