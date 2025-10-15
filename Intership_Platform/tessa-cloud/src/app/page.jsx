@@ -3,20 +3,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import {
-  FaCode,
-  FaGlobe,
-  FaMobileAlt,
-  FaRobot,
-  FaChartLine,
-  FaShieldAlt,
-  FaDesktop,
-  FaCheckCircle,
-  FaCloud,
-  FaGithub,
-  FaGamepad,
-  FaLayerGroup,
-} from "react-icons/fa";
+import * as FaIcons from "react-icons/fa";
 
 export default function TessaCloudLanding() {
   const [showAll, setShowAll] = React.useState(false);
@@ -30,75 +17,87 @@ export default function TessaCloudLanding() {
   const internships = [
     {
       title: "DSA using C++",
+      iconName: "FaCode",
       duration: "6 Months",
       mode: "Online",
-      icon: <FaCode className="text-2xl text-blue-400" />,
+      color: "blue-400",
     },
     {
       title: "Web Development",
+      iconName: "FaGlobe",
       duration: "4-12 weeks",
       mode: "Online",
-      icon: <FaGlobe className="text-2xl text-green-400" />,
+      color: "green-400",
     },
     {
       title: "Mobile App Development",
+      iconName: "FaMobileAlt",
       duration: "4-12 weeks",
       mode: "Hybrid",
-      icon: <FaMobileAlt className="text-2xl text-purple-400" />,
+      color: "purple-400",
     },
     {
       title: "Machine Learning / AI",
+      iconName: "FaRobot",
       duration: "6-24 weeks",
       mode: "Hybrid",
-      icon: <FaRobot className="text-2xl text-yellow-400" />,
+      color: "yellow-400",
     },
     {
       title: "Data Science & Analytics",
+      iconName: "FaChartLine",
       duration: "4-12 weeks",
       mode: "Online",
-      icon: <FaChartLine className="text-2xl text-red-400" />,
+      color: "red-400",
     },
     {
       title: "Cybersecurity Basics",
+      iconName: "FaShieldAlt",
       duration: "4-12 weeks",
       mode: "Online",
-      icon: <FaShieldAlt className="text-2xl text-blue-500" />,
+      color: "blue-500",
     },
     {
       title: "Desktop App Development",
+      iconName: "FaDesktop",
       duration: "4-12 weeks",
       mode: "Hybrid",
-      icon: <FaDesktop className="text-2xl text-indigo-400" />,
+      color: "indigo-400",
     },
     {
       title: "Software Testing & QA",
+      iconName: "FaCheckCircle",
       duration: "4-12 weeks",
       mode: "Online",
-      icon: <FaCheckCircle className="text-2xl text-green-500" />,
+      color: "green-500",
     },
     {
       title: "DevOps / Cloud Basics",
+      iconName: "FaCloud",
       duration: "4-12 weeks",
       mode: "Hybrid",
-      icon: <FaCloud className="text-2xl text-teal-400" />,
+      color: "teal-400",
     },
     {
       title: "Open Source Contribution",
+      iconName: "FaGithub",
       duration: "4-12 weeks",
       mode: "Remote",
-      icon: <FaGithub className="text-2xl text-gray-400" />,
+      color: "gray-400",
     },
     {
       title: "Game Development (Beginner)",
+      iconName: "FaGamepad",
       duration: "4-12 weeks",
       mode: "Hybrid",
-      icon: <FaGamepad className="text-2xl text-pink-400" />,
+      color: "pink-400",
     },
     {
       title: "Full Stack Development (6 Months)",
+      iconName: "FaLayerGroup",
       duration: "6 Months",
       mode: "Hybrid",
-      icon: <FaLayerGroup className="text-2xl text-orange-400" />,
+      color: "orange-400",
     },
   ];
 
@@ -130,6 +129,37 @@ export default function TessaCloudLanding() {
       popularCategoriesRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
+  // Define rows explicitly
+  const firstRow = [
+    "DSA using C++",
+    "Web Development",
+    "Cybersecurity Basics",
+    "Machine Learning / AI",
+  ];
+  const secondRow = [
+    "Data Science & Analytics",
+    "Mobile App Development",
+    "Desktop App Development",
+    "Full Stack Development (6 Months)",
+  ];
+  const remaining = [
+    "Software Testing & QA",
+    "DevOps / Cloud Basics",
+    "Open Source Contribution",
+    "Game Development (Beginner)",
+  ];
+
+  // Map titles to internship objects
+  const rows = [
+    firstRow.map((title) => internships.find((i) => i.title === title)),
+    secondRow.map((title) => internships.find((i) => i.title === title)),
+    remaining.map((title) => internships.find((i) => i.title === title)),
+  ];
+
+  const displayedInternships = showAll
+    ? rows.flat()
+    : rows[0].concat(rows[1].slice(0, Math.max(0, 4 - rows[0].length)));
+
   return (
     <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
       {/* Header */}
@@ -439,30 +469,43 @@ export default function TessaCloudLanding() {
           ref={popularCategoriesRef}
         >
           <h2 className="text-2xl font-semibold mb-6">Popular Categories</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(showAll ? internships : internships.slice(0, 4)).map((it) => (
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                key={it.title}
-                className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  {it.icon}
-                  <div className="text-lg font-semibold">{it.title}</div>
-                </div>
-                <div className="text-sm text-gray-400 mt-2">
-                  Duration: {it.duration}
-                </div>
-                <div className="text-sm text-gray-400">Mode: {it.mode}</div>
-                <button
-                  onClick={() => setSelectedInternship(it)}
-                  className="mt-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_6px_rgba(255,0,85,0.2)] hover:shadow-[0_0_10px_rgba(255,0,85,0.3)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+            {displayedInternships.map((it) => {
+              const IconComponent = FaIcons[it.iconName];
+              return (
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  key={it.title}
+                  className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow min-h-[260px] flex flex-col"
                 >
-                  <span className="tracking-wide">View Details →</span>
-                </button>
-              </motion.div>
-            ))}
+                  <div className="flex items-center gap-3 mb-3">
+                    {IconComponent && (
+                      <IconComponent className={`text-2xl text-${it.color}`} />
+                    )}
+                    <div className="text-lg font-semibold">{it.title}</div>
+                  </div>
+                  <div className="text-sm text-gray-400 mt-2 flex flex-col gap-2 flex-grow">
+                    <div className="flex justify-between">
+                      <span>Duration:</span>
+                      <span>{it.duration}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Mode:</span>
+                      <span>{it.mode}</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <button
+                      onClick={() => setSelectedInternship(it)}
+                      className="w-full px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_6px_rgba(255,0,85,0.2)] hover:shadow-[0_0_10px_rgba(255,0,85,0.3)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
+                    >
+                      <span className="tracking-wide">View Details →</span>
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
           <div className="flex justify-center mt-8">
             <button
