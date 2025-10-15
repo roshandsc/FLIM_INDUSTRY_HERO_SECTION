@@ -1050,36 +1050,36 @@ export default function TessaCloudLanding() {
                 </a>
               </p>
             </div>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
-                />
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Your Mobile Number"
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
-              />
-              <textarea
-                rows="4"
-                placeholder="Your Message"
-                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:border-red-500 focus:outline-none text-white"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-red-600 to-gray-900 hover:from-gray-900 hover:to-red-700 py-3 rounded-md font-semibold text-white shadow-lg hover:scale-105 transition-all"
-              >
-                Send Message
-              </button>
-            </form>
+            {/* Zoho Form Embed (Safe for Next.js Hydration) */}
+            <div>
+              <div id="zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"></div>
+              {typeof window !== "undefined" && (
+                <HydrationSafe>
+                  {React.useEffect(() => {
+                    try {
+                      const formContainer = document.getElementById(
+                        "zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"
+                      );
+                      if (!formContainer) return;
+
+                      const iframe = document.createElement("iframe");
+                      iframe.src =
+                        "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
+                      iframe.style.border = "none";
+                      iframe.style.height = "10px";
+                      iframe.style.width = "60%";
+                      iframe.style.transition = "all 0.5s ease";
+                      iframe.setAttribute("aria-label", "Contact Us");
+
+                      formContainer.innerHTML = ""; // clear previous content if re-rendered
+                      formContainer.appendChild(iframe);
+                    } catch (error) {
+                      console.error("Zoho form failed to load:", error);
+                    }
+                  }, [])}
+                </HydrationSafe>
+              )}
+            </div>
           </div>
         </section>
 
