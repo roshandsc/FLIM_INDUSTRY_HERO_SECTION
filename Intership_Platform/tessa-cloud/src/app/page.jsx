@@ -1,9 +1,31 @@
 "use client";
+// Suppress specific React hydration warning in development (e.g., Grammarly extension)
+if (process.env.NODE_ENV === "development") {
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (
+      typeof args[0] === "string" &&
+      args[0].includes(
+        "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties"
+      )
+    ) {
+      return; // ignore this specific hydration warning
+    }
+    originalConsoleError(...args);
+  };
+}
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import * as FaIcons from "react-icons/fa";
+
+const HydrationSafe = ({ children }) => {
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => setHydrated(true), []);
+  if (!hydrated) return null;
+  return children;
+};
 
 export default function TessaCloudLanding() {
   const [showAll, setShowAll] = React.useState(false);
@@ -312,156 +334,164 @@ export default function TessaCloudLanding() {
 
       <main className="pt-24">
         {/* About Us Popup */}
-        <AnimatePresence>
-          {showAbout && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
-              onClick={() => setShowAbout(false)}
-            >
+        <HydrationSafe>
+          <AnimatePresence>
+            {showAbout && (
               <motion.div
-                onClick={(e) => e.stopPropagation()}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 40, opacity: 0 }}
-                transition={{ duration: 0.5, type: "spring" }}
-                className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-2xl w-full p-8 relative"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
+                onClick={() => setShowAbout(false)}
               >
-                <button
-                  onClick={() => setShowAbout(false)}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                <motion.div
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 40, opacity: 0 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-2xl w-full p-8 relative"
                 >
-                  ✕
-                </button>
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
-                  About Tessa Cloud
-                </h3>
-                <p className="text-sm leading-relaxed">
-                  Tessa Cloud builds intelligent enterprise-grade software
-                  applications leveraging AI to solve complex business
-                  challenges efficiently. Our solutions automate workflows,
-                  enhance productivity, and empower innovation. With a focus on
-                  cutting-edge technology, Tessa Cloud delivers scalable and
-                  secure solutions tailored to enterprise needs.
-                </p>
-                <div className="mt-4 text-sm text-gray-400 italic">
-                  “Innovate. Automate. Elevate.”
-                </div>
+                  <button
+                    onClick={() => setShowAbout(false)}
+                    className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                  >
+                    ✕
+                  </button>
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
+                    About Tessa Cloud
+                  </h3>
+                  <p className="text-sm leading-relaxed">
+                    Tessa Cloud builds intelligent enterprise-grade software
+                    applications leveraging AI to solve complex business
+                    challenges efficiently. Our solutions automate workflows,
+                    enhance productivity, and empower innovation. With a focus
+                    on cutting-edge technology, Tessa Cloud delivers scalable
+                    and secure solutions tailored to enterprise needs.
+                  </p>
+                  <div className="mt-4 text-sm text-gray-400 italic">
+                    “Innovate. Automate. Elevate.”
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </AnimatePresence>
+        </HydrationSafe>
         {/* Contact Us Popup */}
-        <AnimatePresence>
-          {showContact && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
-              onClick={() => setShowContact(false)}
-            >
+        <HydrationSafe>
+          <AnimatePresence>
+            {showContact && (
               <motion.div
-                onClick={(e) => e.stopPropagation()}
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 40, opacity: 0 }}
-                transition={{ duration: 0.5, type: "spring" }}
-                className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-md w-full p-8 relative"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4"
+                onClick={() => setShowContact(false)}
               >
-                <button
-                  onClick={() => setShowContact(false)}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                <motion.div
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 40, opacity: 0 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="bg-gradient-to-br from-gray-900 to-black text-gray-200 rounded-2xl shadow-2xl border border-gray-700 max-w-md w-full p-8 relative"
                 >
-                  ✕
-                </button>
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
-                  Contact Tessa Cloud
-                </h3>
-                <div className="space-y-4 text-sm">
-                  <p>
-                    We’d love to hear from you! Reach out to us via email or
-                    phone.
-                  </p>
-                  <p>
-                    <strong>Email:</strong>{" "}
-                    <a
-                      href="https://mail.google.com/mail/?view=cm&fs=1&to=info@tessacloud.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-400 hover:underline"
-                    >
-                      info@tessacloud.com
-                    </a>
-                  </p>
-                  <p>
-                    <strong>Phone:</strong>{" "}
-                    <a
-                      href="tel:+911234567890"
-                      className="text-blue-400 hover:underline"
-                    >
-                      +91 12345 67890
-                    </a>
-                  </p>
-                </div>
+                  <button
+                    onClick={() => setShowContact(false)}
+                    className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                  >
+                    ✕
+                  </button>
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
+                    Contact Tessa Cloud
+                  </h3>
+                  <div className="space-y-4 text-sm">
+                    <p>
+                      We’d love to hear from you! Reach out to us via email or
+                      phone.
+                    </p>
+                    <p>
+                      <strong>Email:</strong>{" "}
+                      <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=info@tessacloud.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:underline"
+                      >
+                        info@tessacloud.com
+                      </a>
+                    </p>
+                    <p>
+                      <strong>Phone:</strong>{" "}
+                      <a
+                        href="tel:+911234567890"
+                        className="text-blue-400 hover:underline"
+                      >
+                        +91 12345 67890
+                      </a>
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </AnimatePresence>
+        </HydrationSafe>
         {/* Hero */}
         {/* Hero */}
         <section className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex-1"
-          >
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              Explore Your Internship Opportunities
-            </h1>
-            <p className="mt-4 text-gray-300 max-w-xl">
-              Choose your internship duration and find the perfect learning
-              path!
-            </p>
-
+          <HydrationSafe>
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="mt-8 flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex-1"
             >
-              <button
-                onClick={() => handleScrollToPopularCategories()}
-                className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto"
-              >
-                View Internships
-              </button>
-              <button
-                onClick={() => setShowContact(true)}
-                className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto"
-              >
-                Contact Us
-              </button>
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+                Explore Your Internship Opportunities
+              </h1>
+              <p className="mt-4 text-gray-300 max-w-xl">
+                Choose your internship duration and find the perfect learning
+                path!
+              </p>
+              <HydrationSafe>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="mt-8 flex flex-col sm:flex-row gap-4"
+                >
+                  <button
+                    onClick={() => handleScrollToPopularCategories()}
+                    className="px-6 py-3 rounded-md text-white bg-red-600 hover:bg-red-500 shadow-lg w-full sm:w-auto"
+                  >
+                    View Internships
+                  </button>
+                  <button
+                    onClick={() => setShowContact(true)}
+                    className="px-6 py-3 rounded-md text-white bg-transparent border border-red-600 hover:bg-red-600/10 shadow-lg w-full sm:w-auto"
+                  >
+                    Contact Us
+                  </button>
+                </motion.div>
+              </HydrationSafe>
             </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ scale: 0.98, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="flex-1 w-full"
-          >
-            <div className="w-full h-72 md:h-96 rounded-2xl bg-black flex items-center justify-center overflow-hidden">
-              <img
-                src="/wmremove-transformed.png"
-                alt="Hero banner"
-                className="w-full h-full object-cover rounded-2xl brightness-95"
-              />
-            </div>
-          </motion.div>
+          </HydrationSafe>
+          <HydrationSafe>
+            <motion.div
+              initial={{ scale: 0.98, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 w-full"
+            >
+              <div className="w-full h-72 md:h-96 rounded-2xl bg-black flex items-center justify-center overflow-hidden">
+                <img
+                  src="/wmremove-transformed.png"
+                  alt="Hero banner"
+                  className="w-full h-full object-cover rounded-2xl brightness-95"
+                />
+              </div>
+            </motion.div>
+          </HydrationSafe>
         </section>
         {/* Internship Cards */}
         <section
@@ -473,37 +503,40 @@ export default function TessaCloudLanding() {
             {displayedInternships.map((it) => {
               const IconComponent = FaIcons[it.iconName];
               return (
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  key={it.title}
-                  className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow min-h-[260px] flex flex-col"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    {IconComponent && (
-                      <IconComponent className={`text-2xl text-${it.color}`} />
-                    )}
-                    <div className="text-lg font-semibold">{it.title}</div>
-                  </div>
-                  <div className="text-sm text-gray-400 mt-2 flex flex-col gap-2 flex-grow">
-                    <div className="flex justify-between">
-                      <span>Duration:</span>
-                      <span>{it.duration}</span>
+                <HydrationSafe key={it.title}>
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="bg-gradient-to-br from-gray-900 to-gray-800 p-5 rounded-xl border border-gray-700 shadow-md hover:shadow-xl transition-shadow min-h-[260px] flex flex-col"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      {IconComponent && (
+                        <IconComponent
+                          className={`text-2xl text-${it.color}`}
+                        />
+                      )}
+                      <div className="text-lg font-semibold">{it.title}</div>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Mode:</span>
-                      <span>{it.mode}</span>
+                    <div className="text-sm text-gray-400 mt-2 flex flex-col gap-2 flex-grow">
+                      <div className="flex justify-between">
+                        <span>Duration:</span>
+                        <span>{it.duration}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Mode:</span>
+                        <span>{it.mode}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-auto">
-                    <button
-                      onClick={() => setSelectedInternship(it)}
-                      className="w-full px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_6px_rgba(255,0,85,0.2)] hover:shadow-[0_0_10px_rgba(255,0,85,0.3)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
-                    >
-                      <span className="tracking-wide">View Details →</span>
-                    </button>
-                  </div>
-                </motion.div>
+                    <div className="mt-auto">
+                      <button
+                        onClick={() => setSelectedInternship(it)}
+                        className="w-full px-5 py-2.5 rounded-lg bg-gradient-to-r from-red-700 via-red-500 to-gray-900 text-white font-semibold shadow-[0_0_6px_rgba(255,0,85,0.2)] hover:shadow-[0_0_10px_rgba(255,0,85,0.3)] transition-all duration-300 hover:scale-105 hover:from-gray-900 hover:to-red-700"
+                      >
+                        <span className="tracking-wide">View Details →</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                </HydrationSafe>
               );
             })}
           </div>
@@ -531,301 +564,299 @@ export default function TessaCloudLanding() {
         </section>
 
         {selectedInternship && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm overflow-y-auto p-4"
-            onClick={() => setSelectedInternship(null)}
-          >
+          <HydrationSafe>
             <motion.div
-              onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4, type: "spring" }}
-              className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 max-w-3xl w-full shadow-2xl border border-gray-700 relative"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm overflow-y-auto p-4"
+              onClick={() => setSelectedInternship(null)}
             >
-              <button
-                onClick={() => setSelectedInternship(null)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+              <motion.div
+                onClick={(e) => e.stopPropagation()}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4, type: "spring" }}
+                className="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 max-w-3xl w-full shadow-2xl border border-gray-700 relative"
               >
-                ✕
-              </button>
-              <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
-                {selectedInternship.title}
-              </h3>
-
-              {/* Render detailed content based on selected internship */}
-              {selectedInternship.title === "DSA using C++" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 6 Months | <strong>Mode:</strong>{" "}
-                    Online
-                  </p>
-                  <p>
-                    <strong>C++ Refresher & Basic Data Structures:</strong>
-                  </p>
-                  <ul className="list-disc list-inside ml-4">
-                    <li>
-                      Reviewed C++ basics, variables, data types, control
-                      structures
-                    </li>
-                    <li>Implemented arrays, strings, structures, pointers</li>
-                    <li>Solved searching and sorting problems</li>
-                  </ul>
-                  <p>
-                    <strong>Linked Lists, Stacks, and Queues:</strong>
-                  </p>
-                  <ul className="list-disc list-inside ml-4">
-                    <li>Implemented singly, doubly, circular linked lists</li>
-                    <li>
-                      Built stacks and queues using array and linked lists
-                    </li>
-                    <li>Introduced STL containers: stack, queue, list</li>
-                  </ul>
-                  <p>
-                    <strong>Trees and Recursion:</strong>
-                  </p>
-                  <ul className="list-disc list-inside ml-4">
-                    <li>Implemented binary trees and BSTs</li>
-                    <li>Practiced traversals: inorder, preorder, postorder</li>
-                    <li>
-                      Worked on recursive problems and LCA, height, diameter
-                      calculations
-                    </li>
-                  </ul>
-                  <p>
-                    <strong>Graphs & Final Project:</strong>
-                  </p>
-                  <ul className="list-disc list-inside ml-4">
-                    <li>Graph implementation using adjacency list/matrix</li>
-                    <li>
-                      Traversal: BFS, DFS; Algorithms: Dijkstra, Topological
-                      Sorting, Cycle Detection
-                    </li>
-                    <li>Final project: Mini DSA console project</li>
-                  </ul>
-                  <p>
-                    <strong>Skills Gained:</strong>
-                  </p>
-                  <ul className="list-disc list-inside ml-4">
-                    <li>Core DSA concepts in C++</li>
-                    <li>
-                      Problem-solving using recursion, pointers, and dynamic
-                      memory
-                    </li>
-                    <li>
-                      Code debugging, optimization, and real-world DSA
-                      challenges
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {selectedInternship.title === "Web Development" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Online
-                  </p>
-                  <p>
-                    <strong>Frontend:</strong> HTML, CSS, JavaScript, React, Vue
-                  </p>
-                  <p>
-                    <strong>Backend:</strong> Node.js, Express, Django, Flask
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Build a portfolio website,
-                    to-do app, or blog CMS
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Mobile App Development" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Hybrid
-                  </p>
-                  <p>
-                    <strong>Platforms:</strong> Android (Java/Kotlin), iOS
-                    (Swift), Flutter (Dart)
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Weather app, Expense
-                    tracker, Notes app
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Machine Learning / AI" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 6-24 weeks |{" "}
-                    <strong>Mode:</strong> Hybrid
-                  </p>
-                  <p>
-                    <strong>Tools:</strong> Python, Scikit-learn, TensorFlow,
-                    OpenCV
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Image classifier, Chatbot,
-                    Sentiment analysis
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Data Science & Analytics" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Online
-                  </p>
-                  <p>
-                    <strong>Tools:</strong> Python, Pandas, Excel, Power BI, SQL
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Analyze a dataset, Sales
-                    dashboard, Data visualization reports
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Cybersecurity Basics" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Online
-                  </p>
-                  <p>
-                    <strong>Topics:</strong> Network security, OWASP Top 10,
-                    Ethical Hacking (Kali Linux), Web vulnerabilities
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Basic penetration testing on
-                    a test website, password strength checker
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Desktop App Development" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Hybrid
-                  </p>
-                  <p>
-                    <strong>Tech:</strong> Java (Swing/JavaFX), Python
-                    (Tkinter/PyQt), Electron.js
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Calculator, Notepad, File
-                    Organizer
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Software Testing & QA" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Online
-                  </p>
-                  <p>
-                    <strong>Types:</strong> Manual Testing, Automation
-                    (Selenium, Postman)
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Create test cases for a
-                    small app, automate login flow testing
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "DevOps / Cloud Basics" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Hybrid
-                  </p>
-                  <p>
-                    <strong>Tools:</strong> Git, Docker, CI/CD, AWS, Azure,
-                    Google Cloud
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Dockerize a small app, set
-                    up CI with GitHub Actions
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Open Source Contribution" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Remote
-                  </p>
-                  <p>
-                    <strong>Platforms:</strong> GitHub, GitLab
-                  </p>
-                  <p>
-                    <strong>Skills:</strong> Git, issue tracking, pull requests
-                  </p>
-                  <p>
-                    <strong>Project Idea:</strong> Contribute documentation or
-                    code to beginner-friendly repositories
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title === "Game Development (Beginner)" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 4-12 weeks |{" "}
-                    <strong>Mode:</strong> Hybrid
-                  </p>
-                  <p>
-                    <strong>Tools:</strong> Unity (C#), Godot, Pygame
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Simple 2D games like Pong,
-                    Breakout, or Platformer
-                  </p>
-                </div>
-              )}
-
-              {selectedInternship.title ===
-                "Full Stack Development (6 Months)" && (
-                <div className="text-gray-300 space-y-4 text-sm">
-                  <p>
-                    <strong>Duration:</strong> 6 Months | <strong>Mode:</strong>{" "}
-                    Hybrid
-                  </p>
-                  <p>
-                    <strong>Frontend:</strong> HTML, CSS, JavaScript, React, Vue
-                  </p>
-                  <p>
-                    <strong>Backend:</strong> Node.js, Express, Django, Flask
-                  </p>
-                  <p>
-                    <strong>Project Ideas:</strong> Build a full-stack project
-                    (Portfolio, Blog, To-do app)
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-6 text-right">
                 <button
-                  onClick={() =>
-                    alert(`Enrolled in ${selectedInternship.title}!`)
-                  }
-                  className="px-5 py-2.5 rounded-md bg-gradient-to-r from-green-400 via-teal-400 to-blue-500 text-white font-semibold hover:scale-105 transition-transform"
+                  onClick={() => setSelectedInternship(null)}
+                  className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
                 >
-                  Enroll Now
+                  ✕
                 </button>
-              </div>
+                <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent">
+                  {selectedInternship.title}
+                </h3>
+                {/* Render detailed content based on selected internship */}
+                {selectedInternship.title === "DSA using C++" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 6 Months |{" "}
+                      <strong>Mode:</strong> Online
+                    </p>
+                    <p>
+                      <strong>C++ Refresher & Basic Data Structures:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      <li>
+                        Reviewed C++ basics, variables, data types, control
+                        structures
+                      </li>
+                      <li>Implemented arrays, strings, structures, pointers</li>
+                      <li>Solved searching and sorting problems</li>
+                    </ul>
+                    <p>
+                      <strong>Linked Lists, Stacks, and Queues:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      <li>Implemented singly, doubly, circular linked lists</li>
+                      <li>
+                        Built stacks and queues using array and linked lists
+                      </li>
+                      <li>Introduced STL containers: stack, queue, list</li>
+                    </ul>
+                    <p>
+                      <strong>Trees and Recursion:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      <li>Implemented binary trees and BSTs</li>
+                      <li>
+                        Practiced traversals: inorder, preorder, postorder
+                      </li>
+                      <li>
+                        Worked on recursive problems and LCA, height, diameter
+                        calculations
+                      </li>
+                    </ul>
+                    <p>
+                      <strong>Graphs & Final Project:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      <li>Graph implementation using adjacency list/matrix</li>
+                      <li>
+                        Traversal: BFS, DFS; Algorithms: Dijkstra, Topological
+                        Sorting, Cycle Detection
+                      </li>
+                      <li>Final project: Mini DSA console project</li>
+                    </ul>
+                    <p>
+                      <strong>Skills Gained:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      <li>Core DSA concepts in C++</li>
+                      <li>
+                        Problem-solving using recursion, pointers, and dynamic
+                        memory
+                      </li>
+                      <li>
+                        Code debugging, optimization, and real-world DSA
+                        challenges
+                      </li>
+                    </ul>
+                  </div>
+                )}
+                {selectedInternship.title === "Web Development" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Online
+                    </p>
+                    <p>
+                      <strong>Frontend:</strong> HTML, CSS, JavaScript, React,
+                      Vue
+                    </p>
+                    <p>
+                      <strong>Backend:</strong> Node.js, Express, Django, Flask
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Build a portfolio website,
+                      to-do app, or blog CMS
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Mobile App Development" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Platforms:</strong> Android (Java/Kotlin), iOS
+                      (Swift), Flutter (Dart)
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Weather app, Expense
+                      tracker, Notes app
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Machine Learning / AI" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 6-24 weeks |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Tools:</strong> Python, Scikit-learn, TensorFlow,
+                      OpenCV
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Image classifier, Chatbot,
+                      Sentiment analysis
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Data Science & Analytics" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Online
+                    </p>
+                    <p>
+                      <strong>Tools:</strong> Python, Pandas, Excel, Power BI,
+                      SQL
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Analyze a dataset, Sales
+                      dashboard, Data visualization reports
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Cybersecurity Basics" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Online
+                    </p>
+                    <p>
+                      <strong>Topics:</strong> Network security, OWASP Top 10,
+                      Ethical Hacking (Kali Linux), Web vulnerabilities
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Basic penetration testing
+                      on a test website, password strength checker
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Desktop App Development" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Tech:</strong> Java (Swing/JavaFX), Python
+                      (Tkinter/PyQt), Electron.js
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Calculator, Notepad, File
+                      Organizer
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Software Testing & QA" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Online
+                    </p>
+                    <p>
+                      <strong>Types:</strong> Manual Testing, Automation
+                      (Selenium, Postman)
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Create test cases for a
+                      small app, automate login flow testing
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "DevOps / Cloud Basics" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Tools:</strong> Git, Docker, CI/CD, AWS, Azure,
+                      Google Cloud
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Dockerize a small app, set
+                      up CI with GitHub Actions
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Open Source Contribution" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Remote
+                    </p>
+                    <p>
+                      <strong>Platforms:</strong> GitHub, GitLab
+                    </p>
+                    <p>
+                      <strong>Skills:</strong> Git, issue tracking, pull
+                      requests
+                    </p>
+                    <p>
+                      <strong>Project Idea:</strong> Contribute documentation or
+                      code to beginner-friendly repositories
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title === "Game Development (Beginner)" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 4-12 weeks |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Tools:</strong> Unity (C#), Godot, Pygame
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Simple 2D games like Pong,
+                      Breakout, or Platformer
+                    </p>
+                  </div>
+                )}
+                {selectedInternship.title ===
+                  "Full Stack Development (6 Months)" && (
+                  <div className="text-gray-300 space-y-4 text-sm">
+                    <p>
+                      <strong>Duration:</strong> 6 Months |{" "}
+                      <strong>Mode:</strong> Hybrid
+                    </p>
+                    <p>
+                      <strong>Frontend:</strong> HTML, CSS, JavaScript, React,
+                      Vue
+                    </p>
+                    <p>
+                      <strong>Backend:</strong> Node.js, Express, Django, Flask
+                    </p>
+                    <p>
+                      <strong>Project Ideas:</strong> Build a full-stack project
+                      (Portfolio, Blog, To-do app)
+                    </p>
+                  </div>
+                )}
+                <div className="mt-6 text-right">
+                  <button
+                    onClick={() =>
+                      window.open(
+                        "https://forms.gle/B8RZpdtVXn5NdUjy6",
+                        "_blank"
+                      )
+                    }
+                    className="px-5 py-2.5 rounded-md bg-gradient-to-r from-green-400 via-teal-400 to-blue-500 text-white font-semibold hover:scale-105 transition-transform"
+                  >
+                    Enroll Now
+                  </button>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </HydrationSafe>
         )}
 
         {/* Training & Placement */}
@@ -833,19 +864,20 @@ export default function TessaCloudLanding() {
           <h2 className="text-2xl font-semibold mb-6">Training & Placement</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trainings.map((t) => (
-              <motion.div
-                whileHover={{ y: -6 }}
-                key={t.title}
-                className="p-5 rounded-xl bg-gradient-to-tr from-black to-gray-900 border border-gray-700 text-center"
-              >
-                <div className="w-14 h-14 mx-auto rounded-full bg-gray-800 flex items-center justify-center mb-3">
-                  {t.icon}
-                </div>
-                <div className="font-semibold">{t.title}</div>
-                <p className="text-sm text-gray-400 mt-2">
-                  Practical sessions and expert mentors to boost your career.
-                </p>
-              </motion.div>
+              <HydrationSafe key={t.title}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="p-5 rounded-xl bg-gradient-to-tr from-black to-gray-900 border border-gray-700 text-center"
+                >
+                  <div className="w-14 h-14 mx-auto rounded-full bg-gray-800 flex items-center justify-center mb-3">
+                    {t.icon}
+                  </div>
+                  <div className="font-semibold">{t.title}</div>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Practical sessions and expert mentors to boost your career.
+                  </p>
+                </motion.div>
+              </HydrationSafe>
             ))}
           </div>
         </section>
