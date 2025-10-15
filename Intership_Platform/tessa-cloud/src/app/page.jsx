@@ -498,11 +498,11 @@ export default function TessaCloudLanding() {
                 transition={{ duration: 0.6 }}
                 className="flex-1 w-full"
               >
-                <div className="w-full h-72 md:h-96 rounded-2xl bg-black flex items-center justify-center overflow-hidden">
+                <div className="w-full h-72 md:h-96 rounded-2xl bg-[#000000] flex items-center justify-center overflow-hidden shadow-lg">
                   <img
                     src="/wmremove-transformed.png"
                     alt="Hero banner"
-                    className="w-full h-full object-cover rounded-2xl brightness-95"
+                    className="w-full h-full object-cover rounded-2xl"
                   />
                 </div>
               </motion.div>
