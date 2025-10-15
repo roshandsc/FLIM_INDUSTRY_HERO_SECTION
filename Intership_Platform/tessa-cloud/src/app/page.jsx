@@ -512,7 +512,33 @@ export default function TessaCloudLanding() {
                     <div className="flex items-center gap-3 mb-3">
                       {IconComponent && (
                         <IconComponent
-                          className={`text-2xl text-${it.color}`}
+                          className={`text-2xl ${
+                            it.title === "Mobile App Development"
+                              ? "text-purple-400"
+                              : it.color === "blue-400"
+                              ? "text-blue-400"
+                              : it.color === "green-400"
+                              ? "text-green-400"
+                              : it.color === "yellow-400"
+                              ? "text-yellow-400"
+                              : it.color === "red-400"
+                              ? "text-red-400"
+                              : it.color === "blue-500"
+                              ? "text-blue-500"
+                              : it.color === "indigo-400"
+                              ? "text-indigo-400"
+                              : it.color === "green-500"
+                              ? "text-green-500"
+                              : it.color === "teal-400"
+                              ? "text-teal-400"
+                              : it.color === "gray-400"
+                              ? "text-gray-400"
+                              : it.color === "pink-400"
+                              ? "text-pink-400"
+                              : it.color === "orange-400"
+                              ? "text-orange-400"
+                              : "text-white"
+                          }`}
                         />
                       )}
                       <div className="text-lg font-semibold">{it.title}</div>
