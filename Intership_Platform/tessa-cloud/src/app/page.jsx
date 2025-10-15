@@ -1050,8 +1050,8 @@ export default function TessaCloudLanding() {
                 </a>
               </p>
             </div>
-            {/* Zoho Form Embed (Safe for Next.js Hydration) */}
-            <div>
+            {/* Zoho Form Embed (Original Compact Style) */}
+            <div className="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700">
               <div id="zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"></div>
               {typeof window !== "undefined" && (
                 <HydrationSafe>
@@ -1060,18 +1060,34 @@ export default function TessaCloudLanding() {
                       const formContainer = document.getElementById(
                         "zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"
                       );
-                      if (!formContainer) return;
+                      if (
+                        !formContainer ||
+                        formContainer.querySelector("iframe")
+                      )
+                        return;
 
                       const iframe = document.createElement("iframe");
                       iframe.src =
                         "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
-                      iframe.style.border = "none";
-                      iframe.style.height = "10px";
-                      iframe.style.width = "60%";
-                      iframe.style.transition = "all 0.5s ease";
                       iframe.setAttribute("aria-label", "Contact Us");
+                      iframe.style.border = "none";
+                      iframe.style.height = "400px";
+                      iframe.style.width = "100%";
+                      iframe.style.borderRadius = "10px";
+                      iframe.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+                      iframe.style.transition =
+                        "transform 0.3s ease, box-shadow 0.3s ease";
+                      iframe.onmouseenter = () => {
+                        iframe.style.transform = "scale(1.01)";
+                        iframe.style.boxShadow =
+                          "0 6px 16px rgba(255, 0, 85, 0.3)";
+                      };
+                      iframe.onmouseleave = () => {
+                        iframe.style.transform = "scale(1)";
+                        iframe.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+                      };
 
-                      formContainer.innerHTML = ""; // clear previous content if re-rendered
+                      formContainer.innerHTML = "";
                       formContainer.appendChild(iframe);
                     } catch (error) {
                       console.error("Zoho form failed to load:", error);
