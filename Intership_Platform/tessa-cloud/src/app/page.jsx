@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development") {
     originalConsoleError(...args);
   };
 }
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
@@ -1055,27 +1055,8 @@ export default function TessaCloudLanding() {
                 </a>
               </p>
             </div>
-            {/* Zoho Form Embed (Direct JSX-based iframe) */}
-            <div className="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700">
-              <iframe
-                src="https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1"
-                title="Contact Us"
-                aria-label="Contact Us"
-                style={{
-                  border: "none",
-                  width: "100%",
-                  height:
-                    typeof window !== "undefined" && window.innerWidth <= 768
-                      ? "100vh"
-                      : "400px",
-                  borderRadius: "12px",
-                  boxShadow: "0 6px 20px rgba(0,0,0,0.5)",
-                  marginTop: "10px",
-                  marginBottom: "10px",
-                }}
-                allowFullScreen
-              ></iframe>
-            </div>
+            {/* Responsive Zoho Form Embed */}
+            <ZohoContactFormEmbed />
           </div>
         </section>
 
@@ -1149,5 +1130,71 @@ export default function TessaCloudLanding() {
         </footer>
       </div>
     </>
+  );
+}
+
+function ZohoContactFormEmbed() {
+  const [isDesktop, setIsDesktop] = useState(null);
+
+  useEffect(() => {
+    // Check screen width only on client side
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+
+    handleResize(); // Run once on mount
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    // For mobile view, dynamically inject full-height Zoho form
+    if (isDesktop === false) {
+      const container = document.getElementById(
+        "zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"
+      );
+      if (container && container.children.length === 0) {
+        const iframe = document.createElement("iframe");
+        iframe.src =
+          "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
+        iframe.style.border = "none";
+        iframe.style.width = "100%";
+        iframe.style.height = "100vh"; // Full height on mobile
+        iframe.style.borderRadius = "16px";
+        iframe.style.margin = "0";
+        iframe.allowFullscreen = true;
+        container.appendChild(iframe);
+      }
+    }
+  }, [isDesktop]);
+
+  // Wait until we know if it's desktop or mobile
+  if (isDesktop === null) return null;
+
+  return (
+    <div className="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700">
+      <div
+        id="zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"
+        style={{ width: "100%" }}
+      ></div>
+
+      {/* Desktop view only */}
+      {isDesktop && (
+        <iframe
+          src="https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1"
+          title="Contact Us"
+          aria-label="Contact Us"
+          style={{
+            border: "none",
+            width: "100%",
+            height: "400px",
+            borderRadius: "12px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.5)",
+          }}
+          allowFullScreen
+        ></iframe>
+      )}
+    </div>
   );
 }
