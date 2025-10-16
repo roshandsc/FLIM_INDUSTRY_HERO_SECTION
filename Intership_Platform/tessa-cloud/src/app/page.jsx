@@ -195,6 +195,9 @@ export default function TessaCloudLanding() {
     <>
       <Head>
         <title>Tessa Learn</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
         {/* Header */}
@@ -1071,7 +1074,11 @@ export default function TessaCloudLanding() {
                         "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
                       iframe.setAttribute("aria-label", "Contact Us");
                       iframe.style.border = "none";
-                      iframe.style.height = "400px";
+                      if (window.innerWidth <= 768) {
+                        iframe.style.height = "100vh";
+                      } else {
+                        iframe.style.height = "400px";
+                      }
                       iframe.style.width = "100%";
                       iframe.style.borderRadius = "10px";
                       iframe.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
