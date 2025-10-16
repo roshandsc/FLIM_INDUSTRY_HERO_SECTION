@@ -1055,59 +1055,26 @@ export default function TessaCloudLanding() {
                 </a>
               </p>
             </div>
-            {/* Zoho Form Embed (Original Compact Style) */}
+            {/* Zoho Form Embed (Direct JSX-based iframe) */}
             <div className="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-700">
-              <div id="zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"></div>
-              {typeof window !== "undefined" && (
-                <HydrationSafe>
-                  {React.useEffect(() => {
-                    try {
-                      const formContainer = document.getElementById(
-                        "zf_div_0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0"
-                      );
-                      if (
-                        !formContainer ||
-                        formContainer.querySelector("iframe")
-                      )
-                        return;
-
-                      const iframe = document.createElement("iframe");
-                      iframe.src =
-                        "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
-                      iframe.setAttribute("aria-label", "Contact Us");
-                      iframe.style.border = "none";
-                      if (window.innerWidth <= 768) {
-                        iframe.style.height = "100%";
-                        iframe.style.minHeight = "600px"; // ensures enough space for the full form
-                        iframe.style.margin = "0";
-                        iframe.style.borderRadius = "12px";
-                        iframe.style.padding = "0";
-                      } else {
-                        iframe.style.height = "400px";
-                      }
-                      iframe.style.width = "100%";
-                      iframe.style.borderRadius = "10px";
-                      iframe.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
-                      iframe.style.transition =
-                        "transform 0.3s ease, box-shadow 0.3s ease";
-                      iframe.onmouseenter = () => {
-                        iframe.style.transform = "scale(1.01)";
-                        iframe.style.boxShadow =
-                          "0 6px 16px rgba(255, 0, 85, 0.3)";
-                      };
-                      iframe.onmouseleave = () => {
-                        iframe.style.transform = "scale(1)";
-                        iframe.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
-                      };
-
-                      formContainer.innerHTML = "";
-                      formContainer.appendChild(iframe);
-                    } catch (error) {
-                      console.error("Zoho form failed to load:", error);
-                    }
-                  }, [])}
-                </HydrationSafe>
-              )}
+              <iframe
+                src="https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1"
+                title="Contact Us"
+                aria-label="Contact Us"
+                style={{
+                  border: "none",
+                  width: "100%",
+                  height:
+                    typeof window !== "undefined" && window.innerWidth <= 768
+                      ? "100vh"
+                      : "400px",
+                  borderRadius: "12px",
+                  boxShadow: "0 6px 20px rgba(0,0,0,0.5)",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                }}
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
         </section>
