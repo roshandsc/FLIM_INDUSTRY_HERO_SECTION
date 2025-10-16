@@ -1077,11 +1077,11 @@ export default function TessaCloudLanding() {
                       iframe.setAttribute("aria-label", "Contact Us");
                       iframe.style.border = "none";
                       if (window.innerWidth <= 768) {
-                        iframe.style.height = "85vh";
-                        iframe.style.marginTop = "10px";
-                        iframe.style.marginBottom = "10px";
+                        iframe.style.height = "100%";
+                        iframe.style.minHeight = "600px"; // ensures enough space for the full form
+                        iframe.style.margin = "0";
                         iframe.style.borderRadius = "12px";
-                        iframe.style.padding = "8px";
+                        iframe.style.padding = "0";
                       } else {
                         iframe.style.height = "400px";
                       }
