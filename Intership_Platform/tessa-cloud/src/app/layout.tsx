@@ -17,25 +17,29 @@ export const metadata: Metadata = {
   description:
     "Empowering students with internships, training, and real-world learning through Tessa Learn.",
   applicationName: "Tessa Learn",
-  themeColor: "#000000",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
   },
 };
 
+export const viewport = {
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    minimumScale: 1,
+    maximumScale: 1,
+  },
+  themeColor: "#000000",
+};
+
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

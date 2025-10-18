@@ -51,6 +51,7 @@ body {
   background-repeat: no-repeat;
   filter: brightness(0.55);
   z-index: 0;
+  will-change: transform;
 }
 
 .hero-content {
@@ -157,4 +158,30 @@ body {
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
   }
+}
+
+/* Internship Cards Scrolling Fix */
+.internship-card {
+  max-height: 80vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-align: start;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .internship-card {
+    max-height: 70vh;
+  }
+}
+
+.cards-container {
+  overflow-x: auto;
+  display: flex;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
 }

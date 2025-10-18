@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "development") {
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaFileAlt, FaComments, FaUserTie, FaLinkedin } from "react-icons/fa";
+import { FaFileAlt, FaComments, FaUserTie } from "react-icons/fa";
 import {
   FaChalkboardTeacher,
   FaProjectDiagram,
@@ -147,7 +147,7 @@ export default function TessaCloudLanding() {
     },
     {
       title: "LinkedIn Optimization",
-      icon: <FaLinkedin className="text-2xl text-blue-500" />,
+      icon: <FaLinkedinIn className="text-2xl text-blue-500" />,
     },
   ];
 
@@ -198,8 +198,8 @@ export default function TessaCloudLanding() {
         <meta name="application-name" content="Tessa Learn" />
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
-        <link rel="shortcut icon" href="/favicon.ico?v=2" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-screen text-white bg-gradient-to-b from-black via-gray-900 to-gray-800 font-inter">
         {/* Header */}
@@ -703,6 +703,7 @@ export default function TessaCloudLanding() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 backdrop-blur-sm overflow-y-auto p-4"
+                style={{ WebkitOverflowScrolling: "touch" }}
                 onClick={() => setSelectedInternship(null)}
               >
                 <motion.div
@@ -1160,7 +1161,9 @@ function ZohoContactFormEmbed() {
           "https://forms.zohopublic.in/tessacloud1/form/ContactUs/formperma/0qrgWzTrDHLuSZM1G2wlEdB1dStYFoMV3V3XYRodGC0?zf_rszfm=1";
         iframe.style.border = "none";
         iframe.style.width = "100%";
-        iframe.style.height = "100vh"; // Full height on mobile
+        iframe.style.height = "80vh";
+        iframe.style.overflowY = "auto";
+        iframe.style.WebkitOverflowScrolling = "touch";
         iframe.style.borderRadius = "16px";
         iframe.style.margin = "0";
         iframe.allowFullscreen = true;
